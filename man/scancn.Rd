@@ -44,4 +44,3 @@ pasted together.
 x <- file.path(find.package("base"), "CITATION")
 scancn(x)
 }
-

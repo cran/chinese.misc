@@ -34,4 +34,3 @@ m <- matrix(s, nrow = 5)
 colnames(m) <- c("r", "text", "mining", "data")
 m2doc(m)
 }
-

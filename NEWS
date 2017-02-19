@@ -1,4 +1,19 @@
-First Release: Version 0.1.0
-=====================================
+                   chinese.misc NEWS and CHANGELOG
+=========================================================
 
-   o First Release
+## 0.1.1 (2017-02-20)
+
+* [BUGFIX] #2: The function as.character2(x) is changed to as.character2(...), 
+so as to corerce multiple objects in one time. The same is done to as.numeric2(...). 
+Accordingly, some other functions of the package and their documents are also modified.
+
+* [NEW FEATURE] #1: The url of a Chinese manual is added to "chinese.misc-package" in the English manual.
+
+* [BUGFIX] #1: The auto created objects DEFAULT_cutter, DEFAULT_control1, 
+DEFAULT_control2 now can be directly used or modified by users.
+
+-------------------------------------------------------------------------------
+
+## 0.1.0 (2017-02-17)
+
+* First Release: Version 0.1.0

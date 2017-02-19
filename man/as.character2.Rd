@@ -4,16 +4,16 @@
 \alias{as.character2}
 \title{An Enhanced Version of as.character}
 \usage{
-as.character2(x)
+as.character2(...)
 }
 \arguments{
-\item{x}{an object to be coerced.}
+\item{...}{one or more objects to be coerced.}
 }
 \value{
 a character vector
 }
 \description{
-This function manages to coerce an object into a character vector. Unlike 
+This function manages to coerce one or more objects into a character vector. Unlike 
 \code{as.character}, this function can handle data frames, lists and recursive lists 
 (lists of lists), even when there are factor objects inside data frames and lists. If there is any 
 \code{NULL} object in a list, \code{as.character2} will coerce that element into 
@@ -22,7 +22,7 @@ This function manages to coerce an object into a character vector. Unlike
 will open it by column.
 }
 \examples{
-as.character2(NULL)
+as.character2(NULL, NULL)
 # Try a list of NULLs
 null_list <- list(a = NULL, b = NULL, c = NULL)
 # Compare the different results of as.character 
@@ -38,4 +38,3 @@ as.character2(l)
 l2 <- list(l, l, cha = c('a', 'b', 'c'))
 as.character2(l2)
 }
-

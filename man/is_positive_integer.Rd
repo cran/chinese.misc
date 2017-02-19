@@ -2,7 +2,7 @@
 % Please edit documentation in R/is_positive_integer.R
 \name{is_positive_integer}
 \alias{is_positive_integer}
-\title{An Convenient Version of is.integer}
+\title{A Convenient Version of is.integer}
 \usage{
 is_positive_integer(x, len = NULL)
 }
@@ -50,4 +50,3 @@ is_positive_integer(1:5)
 is_positive_integer(1:5, len = c(2, 10))
 is_positive_integer(1:5, len = c(2:10))
 }
-

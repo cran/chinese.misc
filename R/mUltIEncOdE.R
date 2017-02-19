@@ -1,3 +1,4 @@
+#' @import stringi
 mUltIEncOdE <-
 function(x) {
   y <- scan(x, what = "character", fileEncoding = "", quiet = TRUE, sep = "\n")

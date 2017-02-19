@@ -25,8 +25,7 @@
 #' all_file <- dir_or_file(x1, x2, special = "rds$")
 dir_or_file <-
 function(..., special = "") {
-  x <- c(...)
-  x <- as.character2(x)
+  x <- as.character2(...)
   x <- normalizePath(x, winslash = "/", mustWork = TRUE)
   dir_pos <- dir.exists(x)
   all_dir <- x[dir_pos]

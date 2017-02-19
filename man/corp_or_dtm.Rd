@@ -11,7 +11,7 @@ corp_or_dtm(..., from = "dir", type = "corpus", enc = "auto",
 }
 \arguments{
 \item{...}{names of folders, files, or the mixture of the two kinds. It can also be a character 
-vector of text to be processed when setting \code{from} to "v", see below.}
+vector of texts to be processed when setting \code{from} to "v", see below.}
 
 \item{from}{should be "dir" or "v". If your inputs are filenames, it should be "dir" (default), 
 If the input is a character vector of texts, it should be "v". However, if it is set to "v", 
@@ -20,7 +20,8 @@ directory; and, if they are identical, the function will raise an error. To do t
 because if they are identical, \code{segment} will take the input as a file to read!}
 
 \item{type}{what do you want for result. It is case insensitive, thus those can be transformed 
-to "c", "corp", "corpus" represent a corpus result; and "dtm" for document term matrix, 
+to "c", "cor", "corp", "corpus" represent a corpus 
+result; and "dtm" for document term matrix, 
 and "tdm" for term document matrix. See Details. Input other than the above represents 
 a corpus result. The default value is "corpus".}
 
@@ -80,15 +81,35 @@ uses \code{DEFAULT_cutter} which is created when the package is loaded.
 The \code{DEFAULT_cutter} is simply \code{worker(write = FALSE)}.
 See \code{\link[jiebaR]{worker}}.
 
-By default, the argument \code{control} is set to \code{DEFAULT_control1}, which is created 
+As long as 
+you have not manually created another variable called "DEFAULT_cutter", 
+you can directly use \code{jiebaR::new_user_word(DEFAULT_cutter...)} 
+to add new words. By the way, whether you manually create an object 
+called "DEFAULT_cutter", the original loaded DEFAULT_cutter which is 
+used by default by functions in this package will not be removed by you.
+So, whenever you want to use this default value, either you do not set 
+\code{mycutter}, or set it to \code{mycutter = chinese.misc::DEFAULT_cutter}.
+
+By default, the argument \code{control} is set 
+to \code{DEFAULT_control1}, which is created 
 when the package is loaded. It allows words with length 1 to 25 to be placed in dtm or tdm.
-alternatively, \code{DEFAULT_control2} is also created when loading package, which sets 
-word length to be 2 to 25. When \code{control} is \code{NULL}, the function still points 
-to the original value of \code{DEFAULT_control1}, even when \code{DEFAULT_control1} 
-is removed. Whatever control list is assigned to \code{control}, the function 
-never re-segments a segmented Chinese text.
+Alternatively, \code{DEFAULT_control2} is also created 
+when loading package, which sets 
+word length to 2 to 25. When \code{control} is \code{NULL}, the function still points 
+to the original value of \code{DEFAULT_control1}.
+
+You can create your own \code{DEFAULT_control1} or modify the originally 
+loaded one, and you can remove them. However, in fact, the original one can 
+neither be removed nor modified. 
+So, whenever you want to use the original value, just do not set
+\code{control}, or set it to {control = chinese.misc::DEFAULT_control1}.
+The same is to \code{DEFAULT_control2}.
+
+Whatever the control list is assigned to \code{control}, the function makes sure
+that it never re-segments a segmented Chinese text.
 }
 \examples{
+require(tm)
 x <- c(
   "Hello, what do you want to drink?", 
   "drink a bottle of milk", 
@@ -98,6 +119,5 @@ x <- c(
 dtm <- corp_or_dtm(x, from = "v", type = "dtm")
 # Modify argument control to see what happens
 dtm <- corp_or_dtm(x, from = "v", type="dtm", control = list(wordLengths = c(3, 20)))
-dtm <- corp_or_dtm(x, from = "v", type = "dtm", stop_word = c("you", "to", "a", "of", "some"))
+dtm <- corp_or_dtm(x, from = "v", type = "dtm", stop_word = c("you", "to", "a", "of"))
 }
-

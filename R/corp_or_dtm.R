@@ -21,23 +21,43 @@
 #' The \code{DEFAULT_cutter} is simply \code{worker(write = FALSE)}.
 #' See \code{\link[jiebaR]{worker}}.
 #'
-#' By default, the argument \code{control} is set to \code{DEFAULT_control1}, which is created 
+#' As long as 
+#' you have not manually created another variable called "DEFAULT_cutter", 
+#' you can directly use \code{jiebaR::new_user_word(DEFAULT_cutter...)} 
+#' to add new words. By the way, whether you manually create an object 
+#' called "DEFAULT_cutter", the original loaded DEFAULT_cutter which is 
+#' used by default by functions in this package will not be removed by you.
+#' So, whenever you want to use this default value, either you do not set 
+#' \code{mycutter}, or set it to \code{mycutter = chinese.misc::DEFAULT_cutter}.
+#'
+#' By default, the argument \code{control} is set 
+#' to \code{DEFAULT_control1}, which is created 
 #' when the package is loaded. It allows words with length 1 to 25 to be placed in dtm or tdm.
-#' alternatively, \code{DEFAULT_control2} is also created when loading package, which sets 
-#' word length to be 2 to 25. When \code{control} is \code{NULL}, the function still points 
-#' to the original value of \code{DEFAULT_control1}, even when \code{DEFAULT_control1} 
-#' is removed. Whatever control list is assigned to \code{control}, the function 
-#' never re-segments a segmented Chinese text.
+#' Alternatively, \code{DEFAULT_control2} is also created 
+#' when loading package, which sets 
+#' word length to 2 to 25. When \code{control} is \code{NULL}, the function still points 
+#' to the original value of \code{DEFAULT_control1}.
+#'
+#' You can create your own \code{DEFAULT_control1} or modify the originally 
+#' loaded one, and you can remove them. However, in fact, the original one can 
+#' neither be removed nor modified. 
+#' So, whenever you want to use the original value, just do not set
+#' \code{control}, or set it to {control = chinese.misc::DEFAULT_control1}.
+#' The same is to \code{DEFAULT_control2}.
+#' 
+#'Whatever the control list is assigned to \code{control}, the function makes sure
+#' that it never re-segments a segmented Chinese text.
 #'
 #' @param ... names of folders, files, or the mixture of the two kinds. It can also be a character 
-#' vector of text to be processed when setting \code{from} to "v", see below.
+#' vector of texts to be processed when setting \code{from} to "v", see below.
 #' @param from should be "dir" or "v". If your inputs are filenames, it should be "dir" (default), 
 #' If the input is a character vector of texts, it should be "v". However, if it is set to "v", 
 #' make sure each element is not identical to filename in your working
 #' directory; and, if they are identical, the function will raise an error. To do this check is 
 #' because if they are identical, \code{segment} will take the input as a file to read! 
 #' @param type what do you want for result. It is case insensitive, thus those can be transformed 
-#' to "c", "corp", "corpus" represent a corpus result; and "dtm" for document term matrix, 
+#' to "c", "cor", "corp", "corpus" represent a corpus 
+#' result; and "dtm" for document term matrix, 
 #' and "tdm" for term document matrix. See Details. Input other than the above represents 
 #' a corpus result. The default value is "corpus".
 #' @param enc a length 1 character specifying encoding when reading files. If your files 
@@ -57,7 +77,7 @@
 #' set this value because a default value is used. When you set the argument to \code{NULL}, 
 #' it still points to this default value. See Details.
 #' @param myfun1 a function used to modify each text after being read by \code{scancn} 
-#' and before being segmented.
+#' and before being segmented. 
 #' @param myfun2 a function used to modify each text after they are segmented.
 #' @param special a length 1 character or regular expression to be passed to \code{dir_or_file} 
 #' to specify what pattern should be met by filenames. The default is to read all files.
@@ -66,7 +86,10 @@
 #' @return a corpus, or document term matrix, or term document matrix. 
 #'
 #' @export
+#' @import tm
+#' @import NLP
 #' @examples
+#' require(tm)
 #' x <- c(
 #'   "Hello, what do you want to drink?", 
 #'   "drink a bottle of milk", 
@@ -76,9 +99,9 @@
 #' dtm <- corp_or_dtm(x, from = "v", type = "dtm")
 #' # Modify argument control to see what happens
 #' dtm <- corp_or_dtm(x, from = "v", type="dtm", control = list(wordLengths = c(3, 20)))
-#' dtm <- corp_or_dtm(x, from = "v", type = "dtm", stop_word = c("you", "to", "a", "of", "some"))
+#' dtm <- corp_or_dtm(x, from = "v", type = "dtm", stop_word = c("you", "to", "a", "of"))
 corp_or_dtm <-
-function(..., from = "dir", type = "corpus", enc = "auto", mycutter = DEFAULT_cutter, stop_word = NULL, stop_pattern = NULL, control = DEFAULT_control1, 
+function(..., from = "dir", type = "corpus", enc = "auto", mycutter = DEFAULT_cutter, stop_word = NULL, stop_pattern = NULL, control = DEFAULT_control1,
   myfun1 = NULL, myfun2 = NULL, special = "") {
   message("CHECKING ARGUMENTS")
   if (!is.null(stop_word)) {
@@ -95,13 +118,14 @@ function(..., from = "dir", type = "corpus", enc = "auto", mycutter = DEFAULT_cu
     stopifnot(all(!is.na(stop_pattern)))
   if (is.null(type)) 
     stop("Argument type should not be NULL.")
-  if (!is.null(control) & !is.list(control)) 
-    stop("Argument control must be a list or NULL.")
+  type <- tolower(as.character(type[1]))
+  if (type %in% c("dtm", "tdm")){
+    control <- chEck_cOntrOl(control)
+  }
   input <- c(...)
-  stopifnot(is.character(input))
-  input[is.na(input)] <- "NA"
-  if (all(input == "NA")) 
-    stop("Your characters are all NA.")
+  if (!is_character_vector(input))
+    stop("Your input should be characters.")
+  input[is.na(input)] <- ""
   if (from == "dir") {
     message("PROCESSING FILE NAMES")
     fullname <- dir_or_file(input, special = special)
@@ -115,6 +139,7 @@ function(..., from = "dir", type = "corpus", enc = "auto", mycutter = DEFAULT_cu
       if (!is.null(myfun1) && grepl("[^[:space:]]", conved) == TRUE) {
         FUN1 <- match.fun(myfun1)
         conved <- FUN1(conved)
+		conved <- AftEr_myfUn(conved)
       }	  
       if (!is.null(mycutter)) {
         conved <- paste(jiebaR::segment(conved, jiebar = mycutter), collapse = " ")
@@ -123,6 +148,7 @@ function(..., from = "dir", type = "corpus", enc = "auto", mycutter = DEFAULT_cu
       if (!is.null(myfun2) && grepl("[^[:space:]]", conved) == TRUE) {
         FUN2 <- match.fun(myfun2)
         conved <- FUN2(conved)
+		conved <- AftEr_myfUn(conved, pa = TRUE)
       }
       seged_vec[i] <- conved
     }
@@ -135,7 +161,7 @@ function(..., from = "dir", type = "corpus", enc = "auto", mycutter = DEFAULT_cu
     input <- gsub("\\\\(t|r|s|n|)", " ", input)
 	input <- gsub("\\s+$", "", input)
     if (any(file.exists(input))) {
-      stop("Some strings are identical to filenames in working directory, please make some change.")
+      stop("Some strings are identical to filenames in working directory, please make some changes.")
     }
     message("PROCESSING CHARACTER VECTOR")
     seged_vec <- rep(NA, length(input))
@@ -148,7 +174,8 @@ function(..., from = "dir", type = "corpus", enc = "auto", mycutter = DEFAULT_cu
       if (is.function(myfun1) && grepl("[^[:space:]]", ii) == TRUE) {
         FUN1 <- match.fun(myfun1)
         ii <- FUN1(ii)
-      }
+        ii <- AftEr_myfUn(ii)
+	  }
       if (!is.null(mycutter)) {
         ii <- paste(jiebaR::segment(ii, mycutter), collapse = " ")
         ii <- gsub("\\s+", " ", ii)
@@ -156,6 +183,7 @@ function(..., from = "dir", type = "corpus", enc = "auto", mycutter = DEFAULT_cu
       if (is.function(myfun2) && grepl("[^[:space:]]", ii) == TRUE) {
         FUN2 <- match.fun(myfun2)
         ii <- FUN2(ii)
+        ii <- AftEr_myfUn(ii, pa = TRUE)
       }
       seged_vec[i] <- ii
     }
@@ -181,22 +209,12 @@ function(..., from = "dir", type = "corpus", enc = "auto", mycutter = DEFAULT_cu
     corp <- tm::tm_map(corp, tm::removeWords, c(stop_pattern))
   }
   corp <- tm::tm_map(corp, tm::stripWhitespace)
-  type <- tolower(as.character(type[1]))
-  if (type %in% c("c", "corp", "corpus")) {
+  if (type %in% c("c", "cor", "corp", "corpus")) {
     return(corp)
   }
   else if (type %in% c("dtm", "tdm")) {
     message("MAKING ", type)
     corp <- tm::tm_map(corp, tm::content_transformer(zXzXz))
-    inner_token <- NLP::as.Token_Tokenizer(NLP::Regexp_Tokenizer("\\s", invert = TRUE))
-    if (is.null(control)) {
-      control <- list(wordLengths = c(1, 25), tokenizer = inner_token)
-    }
-    control$tokenizer <- inner_token
-	if ("dictionary" %in% names(control)){
-	  max_nchar <- max(nchar(control$dictionary))
-	  control$wordLengths <- c(1, max_nchar)
-	}
     if (type == "dtm") {
       DTMname <- tm::DocumentTermMatrix(corp, control = control)
     }

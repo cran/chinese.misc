@@ -45,6 +45,7 @@ have frequency of 20. As a result, \code{sort_tf} may pick up 7 terms. If you wa
 number is exactly 5, set \code{must_exact} to \code{TRUE}.
 }
 \examples{
+require(tm)
 x <- c(
   "Hello, what do you want to drink?", 
   "drink a bottle of milk", 
@@ -62,4 +63,3 @@ colnames(m)=NULL
 mt=t(m)
 sort_tf(mt, top=5, type="tdm")
 }
-

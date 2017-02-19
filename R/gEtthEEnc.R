@@ -1,3 +1,4 @@
+#' @import Ruchardet
 gEtthEEnc <- function(x1, x2) {
   if (x2 == "auto") {
     y <- tryCatch(expr = {

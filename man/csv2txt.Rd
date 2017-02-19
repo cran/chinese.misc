@@ -81,4 +81,3 @@ f <- paste(wd, "x1x2csv", sep="/")
 csv2txt(csv = "x1x2csv.csv", folder = f, which = 2, row.names = 1, ext = "")
 }
 }
-

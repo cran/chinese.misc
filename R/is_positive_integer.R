@@ -1,4 +1,4 @@
-#' An Convenient Version of is.integer
+#' A Convenient Version of is.integer
 #'
 #' This function checks if all elements of an object can be taken to be valid integers.
 #'

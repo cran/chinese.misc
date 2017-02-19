@@ -27,4 +27,3 @@ x <- matrix(c("coffee", "milk", "tea", "cola"), nrow = 2)
 y <- factor(c(5:8))
 tf2doc(x, y)
 }
-

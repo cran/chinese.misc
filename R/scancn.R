@@ -36,14 +36,14 @@ scancn <-
 function(x, enc = "auto", read_2nd = TRUE) {
   if (length(x) > 1) {
     x <- x[1]
-    warning("x has length larger than 1, only the 1st is used")
+    message("x has length > 1, only the 1st is used.")
   }
   if (!read_2nd %in% c(TRUE, FALSE)) 
     stop("read_2nd must be TRUE or FALSE.")
   the_enc <- gEtthEEnc(x1 = x, x2 = enc)
   text <- scan(x, what = "character", quiet = TRUE, sep = "\n", fileEncoding = the_enc)
   if (read_2nd) {
-    if (the_enc %in% c("utf-8", "UTF-8") & identical(text, "?")) {
+    if (the_enc %in% c("utf-8", "UTF-8", "utf8") & identical(text, "?")) {
       text <- mUltIEncOdE(x)
     }
   }

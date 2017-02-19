@@ -4,16 +4,16 @@
 \alias{as.numeric2}
 \title{An Enhanced Version of as.numeric}
 \usage{
-as.numeric2(x)
+as.numeric2(...)
 }
 \arguments{
-\item{x}{an object to be coerced.}
+\item{...}{one or more objects to be coerced.}
 }
 \value{
 a numeric vector, or, if fails, an error will be raised.
 }
 \description{
-This function coerces an object into a numeric vector. There are several differences between 
+This function coerces objects into a numeric vector. There are several differences between 
 this function and \code{as.numeric}. First, if \code{as.character2} fails to coerce (this is 
 usually because there are characters in the input object), it will raise an error and stop 
 rather than to give a warning. Second, it can handle data frame object, list, and recursive 
@@ -24,7 +24,7 @@ list. Third, it can coerce number-like factors exactly into what users see on th
 a <- c(55, 66, 77, 88, 66, 77, 88)
 b <- factor(a)
 df <- data.frame(a, b)
-as.numeric2(df)
+as.numeric2(df, a*2)
 # Try a list
 l <- list(a, a*2)
 as.numeric2(l)
@@ -32,4 +32,3 @@ as.numeric2(l)
 l2 <- list(l, l)
 as.numeric2(l2)
 }
-

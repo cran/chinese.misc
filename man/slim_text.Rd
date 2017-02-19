@@ -57,17 +57,24 @@ Optionally, words related to a specified place ("ns"), time related words ("t") 
 english words ("eng") can be removed.
 
 By default, a \code{DEFAULT_cutter} is used by the \code{mycutter} argument, which is 
-assigned as \code{worker(write = FALSE)} when loading the package.
+assigned as \code{worker(write = FALSE)} when loading the package. 
+As long as 
+you have not manually created another variable called "DEFAULT_cutter", 
+you can directly use \code{jiebaR::new_user_word(DEFAULT_cutter...)} 
+to add new words. By the way, whether you manually create an object 
+called "DEFAULT_cutter", the original loaded DEFAULT_cutter which is 
+used by default by functions in this package will not be removed by you.
+So, whenever you want to use this default value, either you do not set 
+\code{mycutter}, or set it to \code{mycutter = chinese.misc::DEFAULT_cutter}.
 }
 \examples{
 require(jiebaR)
-cutter=jiebaR::worker()
+cutter <- jiebaR::worker()
 # Give some English words a new tag.
 new_user_word(cutter, c("aaa", "bbb", "ccc"),  rep("x", 3))
-x="we have new words: aaa, bbb, ccc."
+x <- "we have new words: aaa, bbb, ccc."
 # The default is to keep English words.
-slim_text(x, mycutter=cutter)
+slim_text(x, mycutter = cutter)
 # Remove words tagged as "eng" but others are kept.
-slim_text(x, mycutter=cutter, rm_eng=TRUE)
+slim_text(x, mycutter = cutter, rm_eng = TRUE)
 }
-

@@ -1,7 +1,9 @@
 #' @title Miscellaneous Tools for Chinese Text Mining and More
 #'
 #' @description
-#' This package aims to help accomplish the basic tasks of Chinese text mining in a more efficient way.
+#' This package aims to help accomplish the basic tasks of Chinese text mining 
+# in a more efficient way. A part of the manual in Chinese is in 
+#' \url{https://github.com/githubwwwjjj/chinese.misc}.
 #' Compared with other packages and functions, the package puts more weight 
 #' on the following three points:
 #' (1) It helps save users' time.
@@ -24,6 +26,7 @@
 #' @author Jiang Wu
 #' @family chinese.misc_general_topics
 #' @examples 
+#' require(tm)
 #' # Since no Chinese character is allowed, here we 
 #' # use English instead.
 #' # Make a document term matrix in 1 step, few arguments have 

@@ -40,4 +40,3 @@ x2 <- file.path(find.package("base"), "DESCRIPTION")
 txt2csv(x1, x2, must_txt = FALSE, csv = 'x1x2csv.csv')
 }
 }
-

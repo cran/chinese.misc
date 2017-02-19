@@ -28,6 +28,14 @@
 #'
 #' By default, a \code{DEFAULT_cutter} is used by the \code{mycutter} argument, which is 
 #' assigned as \code{worker(write = FALSE)} when loading the package. 
+#' As long as 
+#' you have not manually created another variable called "DEFAULT_cutter", 
+#' you can directly use \code{jiebaR::new_user_word(DEFAULT_cutter...)} 
+#' to add new words. By the way, whether you manually create an object 
+#' called "DEFAULT_cutter", the original loaded DEFAULT_cutter which is 
+#' used by default by functions in this package will not be removed by you.
+#' So, whenever you want to use this default value, either you do not set 
+#' \code{mycutter}, or set it to \code{mycutter = chinese.misc::DEFAULT_cutter}.
 #'
 #' @param x a length 1 character of Chinese text to be tagged
 #' @param mycutter a jiebar cutter provided by users to tag text. It has a default value, see Details.
@@ -46,21 +54,21 @@
 #' @export
 #' @examples
 #' require(jiebaR)
-#' cutter=jiebaR::worker()
+#' cutter <- jiebaR::worker()
 #' # Give some English words a new tag.
 #' new_user_word(cutter, c("aaa", "bbb", "ccc"),  rep("x", 3))
-#' x="we have new words: aaa, bbb, ccc."
+#' x <- "we have new words: aaa, bbb, ccc."
 #' # The default is to keep English words.
-#' slim_text(x, mycutter=cutter)
+#' slim_text(x, mycutter = cutter)
 #' # Remove words tagged as "eng" but others are kept.
-#' slim_text(x, mycutter=cutter, rm_eng=TRUE)
+#' slim_text(x, mycutter = cutter, rm_eng = TRUE)
 slim_text <-
 function(x, mycutter = DEFAULT_cutter, rm_place = TRUE, rm_time = TRUE, rm_eng = FALSE, paste = TRUE) {
   stopifnot(class(mycutter)[1] == "jiebar")
   stopifnot(all(c(rm_place, rm_time, rm_eng, paste) %in% c(TRUE, FALSE)))
   if (length(x) > 1) {
     x <- x[1]
-    warning("Argument x has length larger than 1, only the 1st is used.")
+    message("Argument x has length larger than 1, only the 1st is used.")
   }
   ta <- jiebaR::tagging(x, jiebar = mycutter)
   pat <- "^n|^s|^v|^a|^b|^z|^x|^j|^l|^i|unknown"

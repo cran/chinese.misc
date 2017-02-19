@@ -63,4 +63,3 @@ is_character_vector(matrix(c("a", "b", "c", "d"), nr = 2))
 is_character_vector(c("a", "b", "c"), len = c(1, 10))
 is_character_vector(c("a", "b", "c"), len = c(1:10))
 }
-

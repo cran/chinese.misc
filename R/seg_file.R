@@ -12,9 +12,18 @@
 #' Users should provide their jiebar cutter by \code{mycutter}. Otherwise, the function 
 #' uses \code{DEFAULT_cutter} which is created when the package is loaded. 
 #' The \code{DEFAULT_cutter} is simply \code{worker(write=FALSE)}. 
-#' See \code{\link[jiebaR]{worker}}.
+#' See \code{\link[jiebaR]{worker}}. 
 #'
-#' The encoding for writing file (if \code{folder} is not NULL) depends on the encodings 
+#' As long as 
+#' you have not manually created another variable called "DEFAULT_cutter", 
+#' you can directly use \code{jiebaR::new_user_word(DEFAULT_cutter...)} 
+#' to add new words. By the way, whether you manually create an object 
+#' called "DEFAULT_cutter", the original loaded DEFAULT_cutter which is 
+#' used by default by functions in this package will not be removed by you.
+#' So, whenever you want to use this default value, either you do not set 
+#' \code{mycutter}, or set it to \code{mycutter = chinese.misc::DEFAULT_cutter}.
+#'
+#' The encoding for writing files (if \code{folder} is not NULL) depends on the encodings 
 #' of files the function reads. If it is "GB18030", "GBK", "GB2312" or other encoding 
 #' that has "GB" in it (case insensitive), 
 #' the file will be written in "GB18030", otherwise, "UTF-8".
@@ -50,12 +59,14 @@
 #' If \code{folder} is a folder name, the result will be written into your disk and 
 #' nothing returns.
 #'
+#' @import jiebaR
 #' @export
 #' @examples
+#' require(jiebaR)
 #' # No Chinese word is allowed, so we use English here.
 #' x <- c("drink a bottle of milk", 
 #'   "drink a cup of coffee", 
- #'  "DRINK SOME WATER")
+#'  "DRINK SOME WATER")
 #' seg_file(x, from = "v", myfun1 = tolower)
 seg_file <-
 function(..., from = "dir", folder = NULL, mycutter = DEFAULT_cutter, enc = "auto", myfun1 = NULL, myfun2 = NULL, special = "", ext = "txt") {
@@ -80,8 +91,9 @@ function(..., from = "dir", folder = NULL, mycutter = DEFAULT_cutter, enc = "aut
 	message ("ext invalid, it has been set to size 0 string.")
   }	
   input <- c(...)
-  if (!is.character(input)) 
+  if (!is_character_vector(input)) 
     stop("The input should be characters.")
+  input[is.na(input)] <- ""
   if (from == "dir") {
     message("COLLECTING FILES")
     all_f_input <- dir_or_file(input, special = special)
@@ -94,12 +106,14 @@ function(..., from = "dir", folder = NULL, mycutter = DEFAULT_cutter, enc = "aut
       if (!is.null(myfun1) && grepl("[^[:space:]]", conved) == TRUE) {
         FUN1 <- match.fun(myfun1)
         conved <- FUN1(conved)
+		conved <- AftEr_myfUn(conved)
       }
       conved <- paste(jiebaR::segment(conved, mycutter), collapse = " ")
       conved <- gsub("\\s+", " ", conved)
       if (!is.null(myfun2) && grepl("[^[:space:]]", conved) == TRUE) {
         FUN2 <- match.fun(myfun2)
         conved <- FUN2(conved)
+		conved <- AftEr_myfUn(conved, pa = TRUE)
       }
       basename <- gsub(".*/", "", f)
       write_code <- ifelse(grepl("gb|GB|Gb", the_enc), "GB18030", "UTF-8")
@@ -117,12 +131,14 @@ function(..., from = "dir", folder = NULL, mycutter = DEFAULT_cutter, enc = "aut
       if (!is.null(myfun1) && grepl("[^[:space:]]", conved) == TRUE) {
         FUN1 <- match.fun(myfun1)
         conved <- FUN1(conved)
+		conved <- AftEr_myfUn(conved)
       }
       conved <- paste(jiebaR::segment(conved, mycutter), collapse = " ")
       conved <- gsub("\\s+", " ", conved)
       if (!is.null(myfun2) && grepl("[^[:space:]]", conved) == TRUE) {
         FUN2 <- match.fun(myfun2)
         conved <- FUN2(conved)
+		conved <- AftEr_myfUn(conved, pa = TRUE)
       }
       returned[i] <- conved
     }
@@ -143,12 +159,14 @@ function(..., from = "dir", folder = NULL, mycutter = DEFAULT_cutter, enc = "aut
       if (!is.null(myfun1) && grepl("[^[:space:]]", ii) == TRUE) {
         FUN1 <- match.fun(myfun1)
         ii <- FUN1(ii)
+		ii <- AftEr_myfUn(ii)
       }
       ii <- paste(jiebaR::segment(ii, mycutter), collapse = " ")
       ii <- gsub("\\s+", " ", ii)
       if (!is.null(myfun2) && grepl("[^[:space:]]", ii) == TRUE) {
         FUN2 <- match.fun(myfun2)
         ii <- FUN2(ii)
+        ii <- AftEr_myfUn(ii, pa = TRUE)
       }
       returned[i] <- ii
     }

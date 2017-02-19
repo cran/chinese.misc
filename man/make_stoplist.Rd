@@ -31,4 +31,3 @@ For stop-word list from \code{jiebaR}, see \code{\link[jiebaR]{STOPPATH}}.  It c
 many words that are often removed in analyzing Chinese text and some English
 stop words. However, the result returned by \code{make_stoplist} is slightly different.
 }
-

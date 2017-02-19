@@ -34,4 +34,3 @@ x1 <- find.package("base")
 x2 <- find.package("utils")
 all_file <- dir_or_file(x1, x2, special = "rds$")
 }
-

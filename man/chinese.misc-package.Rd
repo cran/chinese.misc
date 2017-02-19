@@ -2,11 +2,12 @@
 % Please edit documentation in R/package-chinese.misc.R
 \docType{package}
 \name{chinese.misc-package}
-\alias{chinese.misc}
 \alias{chinese.misc-package}
+\alias{chinese.misc}
 \title{Miscellaneous Tools for Chinese Text Mining and More}
 \description{
-This package aims to help accomplish the basic tasks of Chinese text mining in a more efficient way.
+This package aims to help accomplish the basic tasks of Chinese text mining 
+\url{https://github.com/githubwwwjjj/chinese.misc}.
 Compared with other packages and functions, the package puts more weight 
 on the following three points:
 (1) It helps save users' time.
@@ -23,6 +24,7 @@ remove stop words.
 cleaning. And there are some functions for object class assertion and coersion.
 }
 \examples{
+require(tm)
 # Since no Chinese character is allowed, here we 
 # use English instead.
 # Make a document term matrix in 1 step, few arguments have 
@@ -43,4 +45,3 @@ as.character2(l2)
 \author{
 Jiang Wu
 }
-

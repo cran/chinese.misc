@@ -26,6 +26,7 @@ Given a TermDocumentMatrix or DocumentTermMatrix object, the function converts i
 to a matrix or write it into a .csv file, with additional filenames attached to it.
 }
 \examples{
+require(tm)
 x <- c(
   "Hello, what do you want to drink?", 
   "drink a bottle of milk", 
@@ -34,4 +35,3 @@ x <- c(
 dtm <- corp_or_dtm(x, from = "v", type = "dtm")
 output_dtm(dtm, doc_name = paste("doc", 1:4))
 }
-

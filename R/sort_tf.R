@@ -32,6 +32,7 @@
 #'
 #' @export
 #' @examples
+#' require(tm)
 #' x <- c(
 #'   "Hello, what do you want to drink?", 
 #'   "drink a bottle of milk", 

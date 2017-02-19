@@ -26,7 +26,7 @@ make_stoplist <-
 function(x = "jiebar") {
   if (length(x) > 1) {
     x <- x[1]
-    warning("x has length larger than 1, only the 1st is used")
+    message("x has length > 1, only the 1st is used.")
   }
   if (!identical(x, "jiebar")){
     if (!(file.exists(x) & ! dir.exists(x)))
