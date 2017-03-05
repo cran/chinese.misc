@@ -41,8 +41,7 @@ function(..., special = "") {
   if (is_character_vector(special, len = 1) == TRUE && special != "" && length(file_12) > 0) {
     file_12 <- file_12[grepl(special, file_12)]
   }
-  if (length(file_12) == 0) {
-    stop("There is nothing to read.")
-  }
+  if (length(file_12) == 0)
+    stop("There is nothing to collect.")
   return(sort(unique(file_12)))
 }

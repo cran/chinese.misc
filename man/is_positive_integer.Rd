@@ -24,8 +24,10 @@ This function checks if all elements of an object can be taken to be valid integ
 The reasons to use \code{is_positive_integer} are:
 
 \itemize{
-  \item (1) We often check if an object is a vector of positive integer. But \code{is.numeric} cannot #' do this because it also returns \code{TRUE} for a numeric matrix. 
-  \item (2) Sometimes \code{is.vector} 
+  \item (1) We often check if an object is a vector of positive integer. 
+But \code{is.numeric} cannot 
+do this because it also returns \code{TRUE} for a numeric matrix. 
+  \item (2) Sometimes \code{is.integer} 
 returns a too strict result. For example, \code{is.integer(3.0)} returns \code{FALSE},  
 but the number 3.0 is 
 valid in codes such as \code{rep(10, 3.0)}, that is to say, as long as a number can be taken 

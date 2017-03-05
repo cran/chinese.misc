@@ -4,17 +4,19 @@
 \alias{make_stoplist}
 \title{Input a Filename and Return a Vector of Stop Words}
 \usage{
-make_stoplist(x = "jiebar")
+make_stoplist(x = "jiebar", print = TRUE)
 }
 \arguments{
-\item{x}{a length 1 character specifying a valid stop word file. If it is not provided or 
-is "jiebar" (default), it will return part of the stop words used by package \code{jiebaR}.
+\item{x}{a length 1 character specifying a valid stop word file. 
+If it is not provided,  or 
+is "jiebar" (default) or "auto", it will return part of the stop words used by package 
+\code{jiebaR}.
 See Details.}
+
+\item{print}{\code{TRUE} or \code{FALSE}, whether to print the first 5 words}
 }
 \value{
-a character vector of words. If no word is obtained, it will return \code{NULL}. 
-After reading a file, the first six words will be automatically printed on the screen 
-to help you make sure the words are obtained successfully.
+a character vector of words. If no word is obtained, it will return \code{NULL}.
 }
 \description{
 When a filename is provided, the function will return a vector of terms. If nothing is provided, 
@@ -27,7 +29,7 @@ punctuations, numbers, it is also accepted, for the function will try to split t
 Duplicated words will also be automatically removed.
 The encoding of a stop words file is auto-detected by the function.
 
-For stop-word list from \code{jiebaR}, see \code{\link[jiebaR]{STOPPATH}}.  It contains 
+For stop word list from \code{jiebaR}, see \code{\link[jiebaR]{STOPPATH}}.  It contains 
 many words that are often removed in analyzing Chinese text and some English
 stop words. However, the result returned by \code{make_stoplist} is slightly different.
 }

@@ -1,6 +1,30 @@
                    chinese.misc NEWS and CHANGELOG
 =========================================================
 
+## 0.1.2 (2017-03-04)
+
+* [BUGFIX] #2: This version is compatible with package tm (>=0.7), where as the function corp_or_dtm in the previous version sometimes raise error due to the update of tm.
+
+* [BUGFIX] #1: The function as.character2 is slightly modified with no user-visible change.
+
+* [NEW FEATURE] #4: The argument control in function corp_or_dtm has a new 
+default value "auto", which calls the control list named DEFAULT_control1 
+in the previous version. "auto1" also points to this value. "auto2" points to the value 
+named DEFAULT_control2 in the previous version. However, DEFAULT_control1 
+and DEFAULT_control2 can also be used by users.
+
+* [NEW FEATURE] #3: The argument control in the function corp_or_dtm now
+differs significantly from that used by DocumentTermMatrix in package tm. Please 
+see details in the help page of corp_or_dtm.
+
+* [NEW FEATURE] #2: The function scancn and make_stoplist now has enhanced ability 
+to deal with unrecognizable characters.
+
+* [NEW FEATURE] #1: User-visible changes: make_stoplist, slim_text have new arguments.
+But the new arguments are compatible with functions in the previous version.
+
+-------------------------------------------------------------------------------
+
 ## 0.1.1 (2017-02-20)
 
 * [BUGFIX] #2: The function as.character2(x) is changed to as.character2(...), 

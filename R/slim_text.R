@@ -34,8 +34,8 @@
 #' to add new words. By the way, whether you manually create an object 
 #' called "DEFAULT_cutter", the original loaded DEFAULT_cutter which is 
 #' used by default by functions in this package will not be removed by you.
-#' So, whenever you want to use this default value, either you do not set 
-#' \code{mycutter}, or set it to \code{mycutter = chinese.misc::DEFAULT_cutter}.
+#' So, whenever you want to use this default value, you just do not set 
+#' \code{mycutter}.
 #'
 #' @param x a length 1 character of Chinese text to be tagged
 #' @param mycutter a jiebar cutter provided by users to tag text. It has a default value, see Details.
@@ -45,6 +45,10 @@
 #' words ("t") are removed. 
 #' @param rm_eng \code{TRUE} or \code{FALSE}. if \code{TRUE},  English words are 
 #' removed. The default is \code{FALSE}.
+#' @param rm_alpha \code{TRUE} or \code{FALSE} (default). Some English words
+#' are tagged as "x", so cannot be remove by setting \code{rm_eng}. But when
+#' \code{rm_alpha} is \code{TRUE}, any word that contains only a-zA-Z 
+#' will be removed.
 #' @param paste \code{TRUE} or \code{FALSE}, whether to paste the segmented words
 #' together into a length 1 character. The default is \code{TRUE}.
 #'
@@ -62,10 +66,14 @@
 #' slim_text(x, mycutter = cutter)
 #' # Remove words tagged as "eng" but others are kept.
 #' slim_text(x, mycutter = cutter, rm_eng = TRUE)
+#' # Remove any word that only has a-zA-Z, 
+#' # even when rm_eng = FALSE.
+#' slim_text(x, mycutter = cutter, rm_eng = TRUE, rm_alpha = TRUE)
+#' slim_text(x, mycutter = cutter, rm_eng = FALSE, rm_alpha = TRUE)
 slim_text <-
-function(x, mycutter = DEFAULT_cutter, rm_place = TRUE, rm_time = TRUE, rm_eng = FALSE, paste = TRUE) {
+function(x, mycutter = DEFAULT_cutter, rm_place = TRUE, rm_time = TRUE, rm_eng = FALSE, rm_alpha = FALSE, paste = TRUE) {
   stopifnot(class(mycutter)[1] == "jiebar")
-  stopifnot(all(c(rm_place, rm_time, rm_eng, paste) %in% c(TRUE, FALSE)))
+  stopifnot(all(c(rm_place, rm_time, rm_eng, rm_alpha, paste) %in% c(TRUE, FALSE)))
   if (length(x) > 1) {
     x <- x[1]
     message("Argument x has length larger than 1, only the 1st is used.")
@@ -82,6 +90,9 @@ function(x, mycutter = DEFAULT_cutter, rm_place = TRUE, rm_time = TRUE, rm_eng =
   ta <- ta[tal]
   if (rm_place) {
     ta <- ta[names(ta) != "ns"]
+  }
+  if (rm_alpha){
+    ta <- ta[!grepl("^[a-zA-Z]{1,50}$", ta)]
   }
   if (paste) {
     ta <- paste(ta, collapse = " ")

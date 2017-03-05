@@ -1,10 +1,9 @@
 #' A Default Value for corp_or_dtm 2
 #'
-#' This list object is by default called by \code{\link{corp_or_dtm}}.
-#'
 #' The object specifies word length from 2 to 
-#' 25, and takes a regular expression as tokenizer. Also, \code{DEFAULT_control1}
-#' sets lengh from 1 to 25.
+#' 25. The second element, a tokenizer, is temporally deprecated.
+#' Also, \code{DEFAULT_control1}
+#' sets length from 1 to 25.
 #'
 #' @export
 #' @examples

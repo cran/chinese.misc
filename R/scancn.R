@@ -8,6 +8,7 @@
 #' encoding. Sometimes 
 #' a Chinese file is encoded in "UTF-8", but what is actually read is a "?". When this happens, 
 #' the function reads it twice and uses \code{\link[stringi]{stri_encode}} to convert it.
+#' If invalid inputs are found in the content, the file will also be read twice.
 #'
 #' The function always returns a length 1 character. If the return of \code{scan} is a vector 
 #' with length larger than 1, 
@@ -41,20 +42,15 @@ function(x, enc = "auto", read_2nd = TRUE) {
   if (!read_2nd %in% c(TRUE, FALSE)) 
     stop("read_2nd must be TRUE or FALSE.")
   the_enc <- gEtthEEnc(x1 = x, x2 = enc)
-  text <- scan(x, what = "character", quiet = TRUE, sep = "\n", fileEncoding = the_enc)
-  if (read_2nd) {
-    if (the_enc %in% c("utf-8", "UTF-8", "utf8") & identical(text, "?")) {
-      text <- mUltIEncOdE(x)
-    }
-  }
+  text <- tryscAn(x = x, the_enc_in = the_enc, read_2nd_in = read_2nd)
   text <- gsub("[[:cntrl:]]\\d", "", text)
   if (all(is.na(text)) | identical(text, "?")) {
     text <- " "
   }
-  text[is.na(text)] <- " "
+  text[is.na(text)] <- ""
   text <- paste(text, collapse = "   ")
   text <- gsub("\\n", " ", text)
-  text <- gsub("\\\\(t|r|s|n|)", "", text)
+  text <- gsub("\\\\(t|r|n|)", "", text)
   if (!grepl("\\w", text)){
     text <- " "
     message(x, " is blank.")	

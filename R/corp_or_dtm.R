@@ -1,4 +1,4 @@
-#' Generate Corpus or Document Term Matrix with 1 Line
+#' Create Corpus or Document Term Matrix with 1 Line
 #'
 #' This function allows you to input a vectoer of characters, or a mixture of files and folders, it 
 #' will automatically detect file encodings, segment Chinese texts, 
@@ -6,15 +6,17 @@
 #' remove stop words,  and then generate corpus or dtm (tdm). Since \pkg{tm} 
 #' does not support Chinese well, this function manages to solve some problems. See Details.
 #'
-#' Package \pkg{tm} has two problems in creating Chinese document term matrix. First, 
-#' it tries to segment an already segmented Chinese Corpus and put together terms that should 
-#' not be put together. Second, if a term appears in the middle of a text and the end of the text, 
-#' very occassionally it is taken as two different terms. The function is to deal with the problems.
-#' It calls \code{\link{scancn}} to read files and auto-detect file encoding, 
+#' Package \pkg{tm} sometimes
+#' tries to segment an already segmented Chinese Corpus and put together terms that 
+#' should not be put together. The function is to deal with the problem.
+#' It calls \code{\link{scancn}} to read files and 
+#' auto-detect file encodings, 
 #' and calls \code{\link[jiebaR]{segment}} to segment Chinese text, and finally 
-#' calls \code{\link[tm]{Corpus}} to generate corpus, 
-#' or \code{\link[tm]{DocumentTermMatrix}}, 
-#' or \code{\link[tm]{TermDocumentMatrix}} to create dtm or tdm.
+#' calls \code{\link[tm]{Corpus}} to generate corpus.
+#' When creating DTM/TDM, it 
+#' partially depends on \code{\link[tm]{DocumentTermMatrix}} 
+#' and \code{\link[tm]{TermDocumentMatrix}}, but also has some significant
+#' differences in setting control argument. 
 #'
 #' Users should provide their jiebar cutter by \code{mycutter}. Otherwise, the function 
 #' uses \code{DEFAULT_cutter} which is created when the package is loaded. 
@@ -27,26 +29,53 @@
 #' to add new words. By the way, whether you manually create an object 
 #' called "DEFAULT_cutter", the original loaded DEFAULT_cutter which is 
 #' used by default by functions in this package will not be removed by you.
-#' So, whenever you want to use this default value, either you do not set 
-#' \code{mycutter}, or set it to \code{mycutter = chinese.misc::DEFAULT_cutter}.
+#' So, whenever you want to use this default value, you do not need to set 
+#' \code{mycutter} and keep it as default.
 #'
-#' By default, the argument \code{control} is set 
-#' to \code{DEFAULT_control1}, which is created 
-#' when the package is loaded. It allows words with length 1 to 25 to be placed in dtm or tdm.
-#' Alternatively, \code{DEFAULT_control2} is also created 
-#' when loading package, which sets 
-#' word length to 2 to 25. When \code{control} is \code{NULL}, the function still points 
-#' to the original value of \code{DEFAULT_control1}.
+#' The argument \code{control} is very similar to the argument used by 
+#' \code{\link[tm]{DocumentTermMatrix}}, but is quite different and will not be passed
+#' to it! The permitted elements are below:
 #'
-#' You can create your own \code{DEFAULT_control1} or modify the originally 
-#' loaded one, and you can remove them. However, in fact, the original one can 
-#' neither be removed nor modified. 
-#' So, whenever you want to use the original value, just do not set
-#' \code{control}, or set it to {control = chinese.misc::DEFAULT_control1}.
-#' The same is to \code{DEFAULT_control2}.
+#' \itemize{
+#'   \item (1) wordLengths: length 2 positive integer vector. 0 and \code{inf}
+#' is not allowed. If you only want words of 4 to 10, then set it to c(4, 10).
+#' If you do not want to limit the ceiling value, just choose a large value, 
+#' e.g., c(4, 100).
+#' In package tm (>= 0.7), 1 Chinese character is roughly
+#' of length 2 (but not always computed by multiplying 2), 
+#' so if a Chinese words is of 4 characters, the min value 
+#' of wordLengths is 8. But here in \code{corp_or_dtm}, word length is exactly
+#' the same as what you see on the screen. So, a Chinese word with 4 characters is
+#' of length 4 rather than 8.
+#'   \item (2) dictionary: a character vetor of the words which will appear in DTM/TDM 
+#' when you do not want a full one. If none of the words in the dictionary appears in 
+#' corpus, a blank DTM/TDM will be created. The vector should not contain 
+#' \code{NA}, if it does, only non-NA elements will be kept. Make sure at least 1
+#' element is not \code{NA}. Note: if both dictionary and wordLengths appear in 
+#' your control list, wordLengths will be ignored.
+#'   \item (3) bounds: an integer vector of length 2 which limits the term frequency
+#' of words. Only words whose total frequencies are in this range will appear in 
+#' the DTM/TDM. 0 and \code{inf} is not allowed. Let a large enough value to 
+#' indicate the unlimited ceiling.
+#'   \item (4) have: an interger vector of length 2 which limits the time a word 
+#' appears in the corpus. Suppose a word appears 3 times in the 1st article and 2 
+#' times in the 2nd article, and 0 in the 3rd, 
+#' then its bounds value = 3 + 2 + 0 = 5; but its have 
+#' value = 1 + 1 + 0 = 2.
+#'   \item (5) weighting: a function to compute word weights. The default is to 
+#' compute term frequency. But you can use other weighting functions, typically
+#' \code{\link[tm]{weightBin}} or \code{\link[tm]{weightTfIdf}}.
+#'   \item (6) tokenizer: this value is temporarily deprecated and  
+#' it cannot be modified by users. 
+#' }
 #' 
-#'Whatever the control list is assigned to \code{control}, the function makes sure
-#' that it never re-segments a segmented Chinese text.
+#' By default, the argument \code{control} is set 
+#' to "auto", "auto1", or \code{DEFAULT_control1}, 
+#' which are the same. This control list is created 
+#' when the package is loaded. It is simply \code{list(wordLengths = c(1, 25))}, 
+#' Alternatively, \code{DEFAULT_control2} (or "auto2") is also created 
+#' when loading package, which sets 
+#' word length to 2 to 25. 
 #'
 #' @param ... names of folders, files, or the mixture of the two kinds. It can also be a character 
 #' vector of texts to be processed when setting \code{from} to "v", see below.
@@ -55,10 +84,11 @@
 #' make sure each element is not identical to filename in your working
 #' directory; and, if they are identical, the function will raise an error. To do this check is 
 #' because if they are identical, \code{segment} will take the input as a file to read! 
-#' @param type what do you want for result. It is case insensitive, thus those can be transformed 
-#' to "c", "cor", "corp", "corpus" represent a corpus 
-#' result; and "dtm" for document term matrix, 
-#' and "tdm" for term document matrix. See Details. Input other than the above represents 
+#' @param type what do you want for result. It is case insensitive, thus those start with 
+#' "c" or "C" represent a corpus 
+#' result; and those start with "d" or "D" for document term matrix, 
+#' and those start with "t" or "T" for term document matrix. 
+#' Input other than the above represents 
 #' a corpus result. The default value is "corpus".
 #' @param enc a length 1 character specifying encoding when reading files. If your files 
 #' may have different encodings, or you do not know their encodings, 
@@ -66,14 +96,22 @@
 #' to let the function auto-detect encoding for each file.
 #' @param mycutter the jiebar cutter to segment text. A default cutter is used. See Details.
 #' @param stop_word a character vector to specify stop words that should be removed. 
-#' If it is \code{NULL}, nothing is removed. If it is "jiebar", the stop words used by 
+#' If it is \code{NULL}, nothing is removed. If it is "jiebar" or "auto", the stop words used by 
 #' \pkg{jiebaR} are used, see \code{\link{make_stoplist}}.
 #' Please note the default value is \code{NULL}. Texts are transformed to lower case before 
 #' removing stop words, so your stop words only need to contain lower case characters.
 #' @param stop_pattern vector of regular expressions. These patterns are similar to stop words. 
 #' Terms that match the patterns will be removed.
-#' @param control a named list to be passed to \code{DocumentTermMatrix} 
-#' or \code{TermDocumentMatrix} to create dtm or tdm. Most of the time you do not need to 
+#' Note: the function will automatically adds "^" and "$" to the pattern, which means 
+#' first, the pattern you provide should not contain these two; second, the matching
+#' is complete matching. That is  to say, if a word is to be removed, it not just
+#' contains the pattern (which is to be checked by \code{grepl}, but the whole
+#' word match the pattern.
+#' @param control a named list similar to that 
+#' which is used by \code{DocumentTermMatrix} 
+#' or \code{TermDocumentMatrix} to create dtm or tdm. But 
+#' there are some significant differences. 
+#' Most of the time you do not need to 
 #' set this value because a default value is used. When you set the argument to \code{NULL}, 
 #' it still points to this default value. See Details.
 #' @param myfun1 a function used to modify each text after being read by \code{scancn} 
@@ -98,10 +136,10 @@
 #' # The simplest argument setting
 #' dtm <- corp_or_dtm(x, from = "v", type = "dtm")
 #' # Modify argument control to see what happens
-#' dtm <- corp_or_dtm(x, from = "v", type="dtm", control = list(wordLengths = c(3, 20)))
-#' dtm <- corp_or_dtm(x, from = "v", type = "dtm", stop_word = c("you", "to", "a", "of"))
+#' dtm <- corp_or_dtm(x, from = "v", type="d", control = list(wordLengths = c(3, 20)))
+#' tdm <- corp_or_dtm(x, from = "v", type = "T", stop_word = c("you", "to", "a", "of"))
 corp_or_dtm <-
-function(..., from = "dir", type = "corpus", enc = "auto", mycutter = DEFAULT_cutter, stop_word = NULL, stop_pattern = NULL, control = DEFAULT_control1,
+function(..., from = "dir", type = "corpus", enc = "auto", mycutter = DEFAULT_cutter, stop_word = NULL, stop_pattern = NULL, control = "auto",
   myfun1 = NULL, myfun2 = NULL, special = "") {
   message("CHECKING ARGUMENTS")
   if (!is.null(stop_word)) {
@@ -118,8 +156,8 @@ function(..., from = "dir", type = "corpus", enc = "auto", mycutter = DEFAULT_cu
     stopifnot(all(!is.na(stop_pattern)))
   if (is.null(type)) 
     stop("Argument type should not be NULL.")
-  type <- tolower(as.character(type[1]))
-  if (type %in% c("dtm", "tdm")){
+  type <- as.character(type[1])
+  if (grepl("^d|^D|^t|^T", type)){
     control <- chEck_cOntrOl(control)
   }
   input <- c(...)
@@ -129,7 +167,6 @@ function(..., from = "dir", type = "corpus", enc = "auto", mycutter = DEFAULT_cu
   if (from == "dir") {
     message("PROCESSING FILE NAMES")
     fullname <- dir_or_file(input, special = special)
-    partname <- gsub("^.*/", "", fullname)
     seged_vec <- rep(NA, length(fullname))
     message("READING AND PROCESSING FILES")
     for (i in 1:length(fullname)) {
@@ -152,13 +189,13 @@ function(..., from = "dir", type = "corpus", enc = "auto", mycutter = DEFAULT_cu
       }
       seged_vec[i] <- conved
     }
-    message("GENERATING CORPUS")
+	rm(input)
+    message("CREATING CORPUS")
     corp <- tm::Corpus(tm::VectorSource(seged_vec))
-    names(corp) <- partname
-    rm(seged_vec, fullname, partname)
+    rm(seged_vec)
   }
   if (from == "v") {
-    input <- gsub("\\\\(t|r|s|n|)", " ", input)
+    input <- gsub("\\\\(t|r|n|)", " ", input)
 	input <- gsub("\\s+$", "", input)
     if (any(file.exists(input))) {
       stop("Some strings are identical to filenames in working directory, please make some changes.")
@@ -187,6 +224,7 @@ function(..., from = "dir", type = "corpus", enc = "auto", mycutter = DEFAULT_cu
       }
       seged_vec[i] <- ii
     }
+	rm(input)
     message("GENERATING CORPUS")
     corp <- tm::Corpus(tm::VectorSource(seged_vec))
     rm(seged_vec)
@@ -196,8 +234,8 @@ function(..., from = "dir", type = "corpus", enc = "auto", mycutter = DEFAULT_cu
   corp <- tm::tm_map(corp, tm::removeNumbers)
   corp <- tm::tm_map(corp, tm::content_transformer(tolower))
   if (!is.null(stop_word)) {
-    if (stop_word[1] == "jiebar") {
-      corp <- tm::tm_map(corp, tm::removeWords, c(make_stoplist("jiebar")))
+    if (stop_word[1] %in% c("jiebar", "auto")) {
+      corp <- tm::tm_map(corp, tm::removeWords, c(make_stoplist("jiebar", print = FALSE)))
     }
     else {
       corp <- tm::tm_map(corp, tm::removeWords, c(stop_word))
@@ -209,26 +247,25 @@ function(..., from = "dir", type = "corpus", enc = "auto", mycutter = DEFAULT_cu
     corp <- tm::tm_map(corp, tm::removeWords, c(stop_pattern))
   }
   corp <- tm::tm_map(corp, tm::stripWhitespace)
-  if (type %in% c("c", "cor", "corp", "corpus")) {
+  if (grepl("^c|^C", type)) {
+    message("DONE")
     return(corp)
   }
-  else if (type %in% c("dtm", "tdm")) {
-    message("MAKING ", type)
-    corp <- tm::tm_map(corp, tm::content_transformer(zXzXz))
-    if (type == "dtm") {
-      DTMname <- tm::DocumentTermMatrix(corp, control = control)
-    }
-    else {
-      DTMname <- tm::TermDocumentMatrix(corp, control = control)
-    }
-    rm(corp)
-    last_pos <- which(DTMname$dimnames$Terms %in% c("zxvz", "zxvzxqzxj", "zxvzxqzxjzxv"))
-    if (length(last_pos) != 0) 
-      DTMname <- DTMname[, -last_pos]
-    return(DTMname)
+  else if (grepl("^d|^D|^t|^T", type)) {
+    message("MAKING DTM/TDM")
+    totdm=ifelse (grepl("^d|^D", type), FALSE, TRUE)
+    DTMname <- rE_dtm(corp, totdm = totdm, re_control = control)
+	rm(corp)
+	if (from == "dir"){
+		DTMname$dimnames$Docs <- fullname
+		rm(fullname)
+	}
+    message("DONE")
+	return(DTMname)
   }
   else {
     message("You do not specify a valid type, so return corpus.")
+	message("DONE")
     return(corp)
   }
 }

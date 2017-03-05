@@ -21,7 +21,8 @@
 #' called "DEFAULT_cutter", the original loaded DEFAULT_cutter which is 
 #' used by default by functions in this package will not be removed by you.
 #' So, whenever you want to use this default value, either you do not set 
-#' \code{mycutter}, or set it to \code{mycutter = chinese.misc::DEFAULT_cutter}.
+#' \code{mycutter}, or 
+#' set it to \code{mycutter = chinese.misc::DEFAULT_cutter}.
 #'
 #' The encoding for writing files (if \code{folder} is not NULL) depends on the encodings 
 #' of files the function reads. If it is "GB18030", "GBK", "GB2312" or other encoding 
@@ -93,14 +94,16 @@ function(..., from = "dir", folder = NULL, mycutter = DEFAULT_cutter, enc = "aut
   input <- c(...)
   if (!is_character_vector(input)) 
     stop("The input should be characters.")
-  input[is.na(input)] <- ""
   if (from == "dir") {
     message("COLLECTING FILES")
     all_f_input <- dir_or_file(input, special = special)
   }
   if (from == "dir" & !is.null(folder)) {
     message("SEG FILES AND WRITE FOLDER")
-    for (f in all_f_input) {
+	all_f_input_len <- length(all_f_input)
+	vlen <- nchar(as.character(all_f_input_len))
+    for (fi in 1: all_f_input_len) {
+	  f <- all_f_input[fi]
       the_enc <- gEtthEEnc(x1 = f, x2 = enc)
       conved <- scancn(f, enc = the_enc)
       if (!is.null(myfun1) && grepl("[^[:space:]]", conved) == TRUE) {
@@ -116,9 +119,10 @@ function(..., from = "dir", folder = NULL, mycutter = DEFAULT_cutter, enc = "aut
 		conved <- AftEr_myfUn(conved, pa = TRUE)
       }
       basename <- gsub(".*/", "", f)
+	  basename <- gsub("\\.([a-zA-Z]{2,3})$", "", basename)
+	  zerofull <- paste(folder, "/", zero_paste2(fi, vlen), basename, ext2, sep = "")
       write_code <- ifelse(grepl("gb|GB|Gb", the_enc), "GB18030", "UTF-8")
-	  out_name <- paste(folder, basename, sep = "/")
-      utils::write.table(conved, out_name, row.names = FALSE, col.names = FALSE, quote = FALSE, fileEncoding = write_code)
+      utils::write.table(conved, zerofull, row.names = FALSE, col.names = FALSE, quote = FALSE, fileEncoding = write_code)
     }
   }
   if (from == "dir" & is.null(folder)) {
@@ -145,7 +149,8 @@ function(..., from = "dir", folder = NULL, mycutter = DEFAULT_cutter, enc = "aut
     return(returned)
   }
   if (from == "v") {
-    input <- gsub("\\\\(t|r|s|n|)", " ", input)
+    input[is.na(input)] <- ""  
+    input <- gsub("\\\\(t|r|n|)", " ", input)
 	input <- gsub("\\s+$", "", input)
     if (any(file.exists(input))) 
       stop("You cannot take filename as something to parse.")

@@ -8,12 +8,12 @@ list.as.character <- function(x) {
         xi <- rapply(x[[i]], f = As.chArActEr_in, how = "replace")
         if (length(xi) != 0) {
           for (j in 1:length(xi)) {
-          if (class(xi[[j]])[1] == "list") {
-            N <- append(N, xi[[j]])
-          }
-          else {
-            Y <- append(Y, xi[[j]])
-          }
+            if (class(xi[[j]])[1] == "list") {
+              N <- append(N, xi[[j]])
+            }
+            else {
+              Y <- append(Y, xi[[j]])
+            }
           }
         }
       }

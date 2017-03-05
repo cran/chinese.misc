@@ -28,6 +28,7 @@ The function calls \code{scan(x, what= "character", ...)} and auto-detects file
 encoding. Sometimes 
 a Chinese file is encoded in "UTF-8", but what is actually read is a "?". When this happens, 
 the function reads it twice and uses \code{\link[stringi]{stri_encode}} to convert it.
+If invalid inputs are found in the content, the file will also be read twice.
 
 The function always returns a length 1 character. If the return of \code{scan} is a vector 
 with length larger than 1, 

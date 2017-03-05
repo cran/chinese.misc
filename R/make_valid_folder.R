@@ -17,7 +17,7 @@ make_valid_folder <- function(x, return_null = TRUE, last_slash = TRUE) {
         dir.create(x, recursive = TRUE)
         message("Folder ", x, " is created ! !")
       }, error = function(e) {
-        stop("Please provide a valid x name.")
+        stop("Please provide a valid folder name.")
       })
     }
     if (last_slash) 

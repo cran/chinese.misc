@@ -12,5 +12,4 @@
 #'  "drink some water")
 #' seg_file(x, from = "v")
 #' seg_file(x, from = "v", mycutter = DEFAULT_cutter)
-#' seg_file(x, from = "v", mycutter = chinese.misc::DEFAULT_cutter)
 DEFAULT_cutter <- jiebaR::worker(write = FALSE)

@@ -5,7 +5,7 @@
 \title{Remove Words through Speech Tagging}
 \usage{
 slim_text(x, mycutter = DEFAULT_cutter, rm_place = TRUE, rm_time = TRUE,
-  rm_eng = FALSE, paste = TRUE)
+  rm_eng = FALSE, rm_alpha = FALSE, paste = TRUE)
 }
 \arguments{
 \item{x}{a length 1 character of Chinese text to be tagged}
@@ -20,6 +20,11 @@ words ("t") are removed.}
 
 \item{rm_eng}{\code{TRUE} or \code{FALSE}. if \code{TRUE},  English words are 
 removed. The default is \code{FALSE}.}
+
+\item{rm_alpha}{\code{TRUE} or \code{FALSE} (default). Some English words
+are tagged as "x", so cannot be remove by setting \code{rm_eng}. But when
+\code{rm_alpha} is \code{TRUE}, any word that contains only a-zA-Z 
+will be removed.}
 
 \item{paste}{\code{TRUE} or \code{FALSE}, whether to paste the segmented words
 together into a length 1 character. The default is \code{TRUE}.}
@@ -64,8 +69,8 @@ you can directly use \code{jiebaR::new_user_word(DEFAULT_cutter...)}
 to add new words. By the way, whether you manually create an object 
 called "DEFAULT_cutter", the original loaded DEFAULT_cutter which is 
 used by default by functions in this package will not be removed by you.
-So, whenever you want to use this default value, either you do not set 
-\code{mycutter}, or set it to \code{mycutter = chinese.misc::DEFAULT_cutter}.
+So, whenever you want to use this default value, you just do not set 
+\code{mycutter}.
 }
 \examples{
 require(jiebaR)
@@ -77,4 +82,8 @@ x <- "we have new words: aaa, bbb, ccc."
 slim_text(x, mycutter = cutter)
 # Remove words tagged as "eng" but others are kept.
 slim_text(x, mycutter = cutter, rm_eng = TRUE)
+# Remove any word that only has a-zA-Z, 
+# even when rm_eng = FALSE.
+slim_text(x, mycutter = cutter, rm_eng = TRUE, rm_alpha = TRUE)
+slim_text(x, mycutter = cutter, rm_eng = FALSE, rm_alpha = TRUE)
 }

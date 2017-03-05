@@ -24,9 +24,11 @@ terms (by \code{\link{rep}}) linked by a space.
 \description{
 Given a matrix representing a document term matrix, this function takes each row as term 
 frequencies for one file, and rewrite each row as a text.
-Some algorithms require object created by \code{\link[tm]{DocumentTermMatrix}}, 
-If you already convert it into a matrix, you can use this function to convert it into corpus 
-and create document term matrix again.
+Some text mining tools other than R accept
+segmented Chinese texts.
+If you already convert texts into a matrix, you can use this function to convert 
+it into texts, corpus
+or create document term matrix again.
 }
 \examples{
 s <- sample(1:5, 20, replace = TRUE)

@@ -30,27 +30,36 @@
 #' l2 <- list(l, l, cha = c('a', 'b', 'c'))
 #' as.character2(l2)
 as.character2 <- function(...) {
-  x <- list(...)
-  if (is.null(x)) {
-    final <- character(0)
+  X <- list(...)
+  if (length(X) == 0){
+	FINAL <- character(0)
+  } else {
+    FINAL <- c()
+    for (i in 1:length(X)){
+      x <- X[[i]]
+      if (is.null(x)) {
+    	final <- character(0)
+      }
+      else if (length(x) == 0) {
+    	final <- character(0)
+      }
+      else if (class(x)[1] == "data.frame") {
+    	final <- inner_from_df(x)
+      }
+      else if (class(x)[1] == "list") {
+    	final <- list.as.character(x)
+      }
+      else {
+    	final <- as.character(x)
+      }
+      FINAL <- append(FINAL, final)
+    }
+  }  
+  if (is.null(FINAL)){
+	final <- character(0)
   }
-  else if (length(x) == 0) {
-    final <- character(0)
-  }
-  else if (class(x)[1] == "data.frame") {
-    final <- inner_from_df(x)
-  }
-  else if (class(x)[1] == "list") {
-    final <- list.as.character(x)
-  }
-  else {
-    final <- as.character(x)
-  }
-  if (is.null(final)){
-    final <- character(0)
-  }
-  if (!is.vector(final)) 
+  if (!is.vector(FINAL)) 
     stop("Coersion failed.")
-  names(final) <- NULL
-  return(final)
+  names(FINAL) <- NULL
+  return(FINAL)
 }

@@ -2,8 +2,8 @@
 #'
 #' @description
 #' This package aims to help accomplish the basic tasks of Chinese text mining 
-# in a more efficient way. A part of the manual in Chinese is in 
-#' \url{https://github.com/githubwwwjjj/chinese.misc}.
+#' in a more efficient way. The manual in Chinese is 
+#' in \url{https://github.com/githubwwwjjj/chinese.misc}.
 #' Compared with other packages and functions, the package puts more weight 
 #' on the following three points:
 #' (1) It helps save users' time.
@@ -12,7 +12,7 @@
 #' (3) Although the functions in this package depend on \pkg{tm} and 
 #' \pkg{Ruchardet}, several steps and the values of arguments have been 
 #' specially set to facilitate processing Chinese text.
-#' For example, \code{corp_or_dtm} produces corpus or 
+#' For example, \code{corp_or_dtm} creates corpus or 
 #' document term matrix, users only need to input folder names or file names, and the function 
 #' will automatically detect file encoding, segment terms, modify texts, 
 #' remove stop words. 

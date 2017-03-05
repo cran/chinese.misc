@@ -71,7 +71,8 @@ to add new words. By the way, whether you manually create an object
 called "DEFAULT_cutter", the original loaded DEFAULT_cutter which is 
 used by default by functions in this package will not be removed by you.
 So, whenever you want to use this default value, either you do not set 
-\code{mycutter}, or set it to \code{mycutter = chinese.misc::DEFAULT_cutter}.
+\code{mycutter}, or 
+set it to \code{mycutter = chinese.misc::DEFAULT_cutter}.
 
 The encoding for writing files (if \code{folder} is not NULL) depends on the encodings 
 of files the function reads. If it is "GB18030", "GBK", "GB2312" or other encoding 
