@@ -24,6 +24,8 @@
 #' y <- match_pattern(p, x, vec_result = FALSE)
 match_pattern <-
 function(pattern, where, vec_result = TRUE) {
+  where <- whetherencode(where)
+  pattern <- whetherencode(pattern)
   middle <- gregexpr(pattern, where)
   if (vec_result) {
     return(unlist(regmatches(where, middle)))

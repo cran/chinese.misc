@@ -27,6 +27,8 @@
 #' output_dtm(dtm, doc_name = paste("doc", 1:4))
 output_dtm <-
 function(x, outputfile = NULL, doc_name = NULL) {
+  infolocale <- localestart2()
+  on.exit(localeend2(infolocale))
   if (!"simple_triplet_matrix" %in% class(x)) 
     stop("Argument x must be a dtm or a tdm object.")
   if (!is.null(doc_name)) {

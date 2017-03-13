@@ -39,6 +39,7 @@ function(x, enc = "auto", read_2nd = TRUE) {
     x <- x[1]
     message("x has length > 1, only the 1st is used.")
   }
+  x <- whetherencode(x)
   if (!read_2nd %in% c(TRUE, FALSE)) 
     stop("read_2nd must be TRUE or FALSE.")
   the_enc <- gEtthEEnc(x1 = x, x2 = enc)
@@ -49,11 +50,11 @@ function(x, enc = "auto", read_2nd = TRUE) {
   }
   text[is.na(text)] <- ""
   text <- paste(text, collapse = "   ")
-  text <- gsub("\\n", " ", text)
+  text <- gsub("\\n|\\r", " ", text)
   text <- gsub("\\\\(t|r|n|)", "", text)
-  if (!grepl("\\w", text)){
+  if (grepl("^\\s+$", text)){
     text <- " "
-    message(x, " is blank.")	
+    cat(x, " is blank.", "\n")	
   }
   return(text)
 }

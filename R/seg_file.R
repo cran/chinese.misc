@@ -24,10 +24,7 @@
 #' \code{mycutter}, or 
 #' set it to \code{mycutter = chinese.misc::DEFAULT_cutter}.
 #'
-#' The encoding for writing files (if \code{folder} is not NULL) depends on the encodings 
-#' of files the function reads. If it is "GB18030", "GBK", "GB2312" or other encoding 
-#' that has "GB" in it (case insensitive), 
-#' the file will be written in "GB18030", otherwise, "UTF-8".
+#' The encoding for writing files (if \code{folder} is not NULL) is always "UTF-8".
 #'
 #' @param ... names of folders, files, or the mixture of the two kinds. It can also be a character 
 #' vector of text to be processed when setting \code{from} to "v", see below.
@@ -71,15 +68,21 @@
 #' seg_file(x, from = "v", myfun1 = tolower)
 seg_file <-
 function(..., from = "dir", folder = NULL, mycutter = DEFAULT_cutter, enc = "auto", myfun1 = NULL, myfun2 = NULL, special = "", ext = "txt") {
+  INFOLOCALE <- localestart2()
+  on.exit(localeend2(INFOLOCALE))
   message("CHECKING ARGUMENTS")
   if (class(mycutter)[1] != "jiebar") 
     stop("Argument mycutter should be a jiebar cutter.")
   if (!from %in% c("dir", "v")) 
     stop("Argument from should be either dir or v.")
-  if (!is.null(myfun1)) 
+  if (!is.null(myfun1)){
     stopifnot(is.function(myfun1))
-  if (!is.null(myfun2)) 
+	FUN1 <- match.fun(myfun1)
+  }
+  if (!is.null(myfun2)){
     stopifnot(is.function(myfun2))
+	FUN2 <- match.fun(myfun2)
+  }
   folder <- make_valid_folder(folder, return_null = TRUE)
   if (identical(ext, "txt")){
     ext2 <- ".txt"
@@ -96,7 +99,7 @@ function(..., from = "dir", folder = NULL, mycutter = DEFAULT_cutter, enc = "aut
     stop("The input should be characters.")
   if (from == "dir") {
     message("COLLECTING FILES")
-    all_f_input <- dir_or_file(input, special = special)
+    all_f_input <- dir_or_file_self(input, special = special)
   }
   if (from == "dir" & !is.null(folder)) {
     message("SEG FILES AND WRITE FOLDER")
@@ -107,21 +110,19 @@ function(..., from = "dir", folder = NULL, mycutter = DEFAULT_cutter, enc = "aut
       the_enc <- gEtthEEnc(x1 = f, x2 = enc)
       conved <- scancn(f, enc = the_enc)
       if (!is.null(myfun1) && grepl("[^[:space:]]", conved) == TRUE) {
-        FUN1 <- match.fun(myfun1)
         conved <- FUN1(conved)
 		conved <- AftEr_myfUn(conved)
       }
       conved <- paste(jiebaR::segment(conved, mycutter), collapse = " ")
       conved <- gsub("\\s+", " ", conved)
       if (!is.null(myfun2) && grepl("[^[:space:]]", conved) == TRUE) {
-        FUN2 <- match.fun(myfun2)
         conved <- FUN2(conved)
 		conved <- AftEr_myfUn(conved, pa = TRUE)
       }
       basename <- gsub(".*/", "", f)
 	  basename <- gsub("\\.([a-zA-Z]{2,3})$", "", basename)
-	  zerofull <- paste(folder, "/", zero_paste2(fi, vlen), basename, ext2, sep = "")
-      write_code <- ifelse(grepl("gb|GB|Gb", the_enc), "GB18030", "UTF-8")
+	  zerofull <- paste(folder, "/", zero_paste2(fi, vlen), " ", basename, ext2, sep = "")
+      write_code <- "UTF-8"
       utils::write.table(conved, zerofull, row.names = FALSE, col.names = FALSE, quote = FALSE, fileEncoding = write_code)
     }
   }
@@ -133,14 +134,12 @@ function(..., from = "dir", folder = NULL, mycutter = DEFAULT_cutter, enc = "aut
       the_enc <- gEtthEEnc(x1 = f, x2 = enc)
       conved <- scancn(f, enc = the_enc)
       if (!is.null(myfun1) && grepl("[^[:space:]]", conved) == TRUE) {
-        FUN1 <- match.fun(myfun1)
         conved <- FUN1(conved)
 		conved <- AftEr_myfUn(conved)
       }
       conved <- paste(jiebaR::segment(conved, mycutter), collapse = " ")
       conved <- gsub("\\s+", " ", conved)
       if (!is.null(myfun2) && grepl("[^[:space:]]", conved) == TRUE) {
-        FUN2 <- match.fun(myfun2)
         conved <- FUN2(conved)
 		conved <- AftEr_myfUn(conved, pa = TRUE)
       }
@@ -162,14 +161,12 @@ function(..., from = "dir", folder = NULL, mycutter = DEFAULT_cutter, enc = "aut
         ii <- " "
       }
       if (!is.null(myfun1) && grepl("[^[:space:]]", ii) == TRUE) {
-        FUN1 <- match.fun(myfun1)
         ii <- FUN1(ii)
 		ii <- AftEr_myfUn(ii)
       }
       ii <- paste(jiebaR::segment(ii, mycutter), collapse = " ")
       ii <- gsub("\\s+", " ", ii)
       if (!is.null(myfun2) && grepl("[^[:space:]]", ii) == TRUE) {
-        FUN2 <- match.fun(myfun2)
         ii <- FUN2(ii)
         ii <- AftEr_myfUn(ii, pa = TRUE)
       }

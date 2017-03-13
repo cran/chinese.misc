@@ -30,8 +30,10 @@
 #' }
 txt2csv <-
 function(..., csv, must_txt = TRUE, na_in_txt = NULL) {
+  infolocale <- localestart2()
+  on.exit(localeend2(infolocale))
   y <- c(...)
-  all_file <- dir_or_file(y, special = ifelse(must_txt == TRUE, "\\.txt$", ""))
+  all_file <- dir_or_file_self(y, special = ifelse(must_txt == TRUE, "\\.txt$", ""))
   if (!grepl("\\.csv$|\\.CSV", csv)) 
     stop("csv must be the name of a csv file.")
   if (!is.null(na_in_txt) && !is_character_vector(na_in_txt)) 
@@ -43,11 +45,11 @@ function(..., csv, must_txt = TRUE, na_in_txt = NULL) {
       text <- scancn(file_i)
       if (is.null(text) || text %in% c(" ", na_in_txt)) {
         text <- "NA"
-        message("Content of ", file_i, " is set to letters NA.")
+        message("Content of ", i, " is set to letters NA.")
       }
       text
     }, error = function(e) {
-      message("Cannot process ", file_i, " , so set it to letters NA.")
+      message("Cannot process ", i, " , so set it to letters NA.")
       return("NA")
     })
     all_text[i] <- text

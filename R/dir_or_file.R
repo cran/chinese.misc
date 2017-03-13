@@ -25,7 +25,10 @@
 #' all_file <- dir_or_file(x1, x2, special = "rds$")
 dir_or_file <-
 function(..., special = "") {
+  infolocale <- localestart2()
+  on.exit(localeend2(infolocale))
   x <- as.character2(...)
+  x <- whetherencode(x)
   x <- normalizePath(x, winslash = "/", mustWork = TRUE)
   dir_pos <- dir.exists(x)
   all_dir <- x[dir_pos]
@@ -43,5 +46,7 @@ function(..., special = "") {
   }
   if (length(file_12) == 0)
     stop("There is nothing to collect.")
-  return(sort(unique(file_12)))
+  file_12 <- sort(unique(file_12))
+  file_12 <- stringi::stri_encode(file_12, to = "UTF-8")
+  return(file_12)
 }

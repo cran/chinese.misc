@@ -45,9 +45,10 @@
 #' words ("t") are removed. 
 #' @param rm_eng \code{TRUE} or \code{FALSE}. if \code{TRUE},  English words are 
 #' removed. The default is \code{FALSE}.
-#' @param rm_alpha \code{TRUE} or \code{FALSE} (default). Some English words
+#' @param rm_alpha should be "any", \code{TRUE} or \code{FALSE} (default). Some English words
 #' are tagged as "x", so cannot be remove by setting \code{rm_eng}. But when
 #' \code{rm_alpha} is \code{TRUE}, any word that contains only a-zA-Z 
+#' will be removed. If it is "any", then words that are mixtures of a-zA-Z and Chinese/digits 
 #' will be removed.
 #' @param paste \code{TRUE} or \code{FALSE}, whether to paste the segmented words
 #' together into a length 1 character. The default is \code{TRUE}.
@@ -73,11 +74,13 @@
 slim_text <-
 function(x, mycutter = DEFAULT_cutter, rm_place = TRUE, rm_time = TRUE, rm_eng = FALSE, rm_alpha = FALSE, paste = TRUE) {
   stopifnot(class(mycutter)[1] == "jiebar")
-  stopifnot(all(c(rm_place, rm_time, rm_eng, rm_alpha, paste) %in% c(TRUE, FALSE)))
+  stopifnot(all(c(rm_place, rm_time, rm_eng, paste) %in% c(TRUE, FALSE)))
+  stopifnot(identical(rm_alpha, TRUE) | identical(rm_alpha, FALSE) | identical(rm_alpha, "any"))
   if (length(x) > 1) {
     x <- x[1]
     message("Argument x has length larger than 1, only the 1st is used.")
   }
+  x <- whetherencode(x)
   ta <- jiebaR::tagging(x, jiebar = mycutter)
   pat <- "^n|^s|^v|^a|^b|^z|^x|^j|^l|^i|unknown"
   if (!rm_time){
@@ -91,9 +94,12 @@ function(x, mycutter = DEFAULT_cutter, rm_place = TRUE, rm_time = TRUE, rm_eng =
   if (rm_place) {
     ta <- ta[names(ta) != "ns"]
   }
-  if (rm_alpha){
+  if (rm_alpha == TRUE){
     ta <- ta[!grepl("^[a-zA-Z]{1,50}$", ta)]
   }
+  if (rm_alpha == "any"){
+    ta <- ta[!grepl("[a-zA-Z]", ta)]
+  } 
   if (paste) {
     ta <- paste(ta, collapse = " ")
   }

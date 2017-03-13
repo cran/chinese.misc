@@ -63,6 +63,8 @@
 #' }
 csv2txt <-
 function(csv, folder, which, header = TRUE, row.names = NULL, na_in_csv = c(NA, "", " ", "?", "NA", "999"), na_in_txt = " ", name_col = NULL, ext = "txt") {
+  INFOLOCALE <- localestart2()
+  on.exit(localeend2(INFOLOCALE))
   if (!grepl("\\.csv$|\\.CSV", csv)) 
     stop("csv must be a csv file.")
   if (!is_character_vector(na_in_txt, len = 1)) 

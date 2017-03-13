@@ -22,6 +22,7 @@ chEck_cOntrOl <- function(x) {
 	  dicvec <- x$dictionary
 	  stopifnot(is_character_vector(dicvec, allow_all_na = FALSE))
 	  dicvec <- dicvec[!is.na(dicvec)]
+	  dicvec <- whetherencode(dicvec)
       max_nchar <- max(nchar(dicvec))
 	  x$dictionary <- dicvec
       x$wordLengths <- c(1, max_nchar)

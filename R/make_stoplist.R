@@ -10,8 +10,8 @@
 #' The encoding of a stop words file is auto-detected by the function.
 #'
 #' For stop word list from \code{jiebaR}, see \code{\link[jiebaR]{STOPPATH}}.  It contains 
-#' many words that are often removed in analyzing Chinese text and some English
-#' stop words. However, the result returned by \code{make_stoplist} is slightly different.
+#' many words that are often removed in analyzing Chinese text.
+#' However, the result returned by \code{make_stoplist} is slightly different.
 #'
 #' @param x a length 1 character specifying a valid stop word file. 
 #' If it is not provided,  or 
@@ -26,10 +26,13 @@
 #' @export
 make_stoplist <-
 function(x = "jiebar", print = TRUE) {
+  infolocale <- localestart2()
+  on.exit(localeend2(infolocale))
   if (length(x) > 1) {
     x <- x[1]
     message("x has length > 1, only the 1st is used.")
   }
+  x <- whetherencode(x)
   if (!identical(x, "jiebar") & !identical(x, "auto")){
     if (!(file.exists(x) & ! dir.exists(x)))
       stop('x must be a valid filename.')
@@ -37,18 +40,20 @@ function(x = "jiebar", print = TRUE) {
   if (x == "jiebar" | x == "auto") {
     ST <- readLines(jiebaR::STOPPATH, encoding = Ruchardet::detectFileEncoding(jiebaR::STOPPATH))
     ST <- ST[-c(1:127, 137, 148:155, 878:882, 1180:1206, 1359, 1526:1534)]
+	ST <- ST[!grepl("[a-zA-Z]", ST)]
+	ST <- whetherencode(ST)
   }
   else {
     the_enc <- gEtthEEnc(x1 = x, x2 = "auto")
     ST <- tryscAn(x = x, the_enc_in = the_enc, read_2nd_in = TRUE)
 	ST <- gsub("[[:cntrl:]]\\d", "", ST)
-	ST <- gsub("\\n", " ", ST)	
+	ST <- gsub("\\n|\\r", " ", ST)	
   }
   ST <- ST[!is.na(ST) & ST != ""]
   ST <- unlist(strsplit(ST, "\\\\n|\\\\t|\\\\r"))
-  ST <- unlist(strsplit(ST, "\\W+|\\d+"))
+  ST <- unlist(strsplit(ST, "[[:blank:]]+|[[:space:]]+|[[:punct:]]+|\\d+"))
   ST <- ST[ST != "" & ST != "NA"]
-  ST=unique(ST)
+  ST <- unique(ST)
   if (length(ST) == 0){
     return(NULL)
   } else {

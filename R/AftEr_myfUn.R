@@ -10,6 +10,7 @@ AftEr_myfUn <- function(x, pa = FALSE) {
         x <- paste(x, collapse = " ")
       }
     }
+	x <- whetherencode(x)
     return(x)
   }
 }

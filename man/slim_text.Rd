@@ -21,9 +21,10 @@ words ("t") are removed.}
 \item{rm_eng}{\code{TRUE} or \code{FALSE}. if \code{TRUE},  English words are 
 removed. The default is \code{FALSE}.}
 
-\item{rm_alpha}{\code{TRUE} or \code{FALSE} (default). Some English words
+\item{rm_alpha}{should be "any", \code{TRUE} or \code{FALSE} (default). Some English words
 are tagged as "x", so cannot be remove by setting \code{rm_eng}. But when
 \code{rm_alpha} is \code{TRUE}, any word that contains only a-zA-Z 
+will be removed. If it is "any", then words that are mixtures of a-zA-Z and Chinese/digits 
 will be removed.}
 
 \item{paste}{\code{TRUE} or \code{FALSE}, whether to paste the segmented words

@@ -53,5 +53,6 @@ function(m, checks = FALSE) {
     }
   }
   many_row <- apply(m, 1, innertf2doc, term = coln)
+  many_row <- whetherencode(many_row)
   return(many_row)
 }

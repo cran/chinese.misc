@@ -18,9 +18,9 @@ order of the term frequency, this argument decides how many top terms should be 
 The default is 10. If the number of terms is smaller than \code{top}, all terms are returned.
 Sometimes the returned terms are more than \code{top}, see below.}
 
-\item{type}{should be "dtm" or "tdm". It is only used when \code{x} is a matrix, 
-as you must use this argument to tell whether it 
-represents a document term matrix or a term document matrix.}
+\item{type}{should start with "D/d" representing document term matrix, 
+or "T/t" representing term document matrix.
+It is only used when \code{x} is a matrix. The default is "dtm".}
 
 \item{todf}{should be \code{TRUE} or \code{FALSE}. If it is \code{FALSE} (default) 
 terms and their frequencies will be pasted by "&" and messaged on the screen, nothing is 
@@ -33,7 +33,7 @@ the number of returned words should be equal to that specified by \code{top}. Se
 return nothing and message the result, or return a data frame.
 }
 \description{
-By inputing a matrix, or a document term matrix, or term document matrix, this function count
+By inputing a matrix, or a document term matrix, or term document matrix, this function counts
 the sum of each term and output top n terms. The result can be messaged on the screen, so 
 that you can manually copy them to other places (e. g., Excel).
 }

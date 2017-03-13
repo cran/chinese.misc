@@ -30,6 +30,6 @@ Duplicated words will also be automatically removed.
 The encoding of a stop words file is auto-detected by the function.
 
 For stop word list from \code{jiebaR}, see \code{\link[jiebaR]{STOPPATH}}.  It contains 
-many words that are often removed in analyzing Chinese text and some English
-stop words. However, the result returned by \code{make_stoplist} is slightly different.
+many words that are often removed in analyzing Chinese text.
+However, the result returned by \code{make_stoplist} is slightly different.
 }

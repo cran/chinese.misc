@@ -1,6 +1,6 @@
 #' Find High Frequency Terms
 #'
-#' By inputing a matrix, or a document term matrix, or term document matrix, this function count
+#' By inputing a matrix, or a document term matrix, or term document matrix, this function counts
 #' the sum of each term and output top n terms. The result can be messaged on the screen, so 
 #' that you can manually copy them to other places (e. g., Excel).
 #'
@@ -19,9 +19,9 @@
 #' order of the term frequency, this argument decides how many top terms should be returned.
 #' The default is 10. If the number of terms is smaller than \code{top}, all terms are returned.
 #' Sometimes the returned terms are more than \code{top}, see below.
-#' @param type should be "dtm" or "tdm". It is only used when \code{x} is a matrix, 
-#' as you must use this argument to tell whether it 
-#' represents a document term matrix or a term document matrix. 
+#' @param type should start with "D/d" representing document term matrix, 
+#' or "T/t" representing term document matrix.
+#' It is only used when \code{x} is a matrix. The default is "dtm".
 #' @param todf should be \code{TRUE} or \code{FALSE}. If it is \code{FALSE} (default) 
 #' terms and their frequencies will be pasted by "&" and messaged on the screen, nothing is 
 #' returned. Otherwise, terms and frequencies will be returned as data frame.
@@ -50,16 +50,18 @@
 #' mt=t(m)
 #' sort_tf(mt, top=5, type="tdm")
 sort_tf <- function(x, top = 10, type = "dtm", todf = FALSE, must_exact = FALSE) {
+  infolocale <- localestart2()
+  on.exit(localeend2(infolocale))
   top <- as.integer(top[1])
   if (!top > 0) 
     stop("Argument top should be a length 1 integer larger than zero.")
   if (!must_exact %in% c(TRUE, FALSE)) 
     stop("must_exact must be TRUE or FALSE.")
   if (class(x)[1] %in% c("matrix")) {
-    stopifnot(type %in% c("dtm", "tdm"))
-    if (type == "dtm") 
+    stopifnot(grepl("^d|^D|^t|^T", type))
+    if (grepl("^d|^D", type)) 
       inner_type <- "dtm"
-    if (type == "tdm") 
+    if (grepl("^t|^T", type)) 
       inner_type <- "tdm"
     check_num <- apply(x, 2, is.numeric)
     if (!all(check_num)) 
@@ -84,7 +86,7 @@ sort_tf <- function(x, top = 10, type = "dtm", todf = FALSE, must_exact = FALSE)
   }
   if (inner_type == "dtm") {
     freq <- colSums(x)
-    word <- colnames(x)
+	word <- colnames(x)
     if (is.null(word)) 
       word <- paste("term", 1:ncol(x), sep = "")
   }
@@ -108,10 +110,11 @@ sort_tf <- function(x, top = 10, type = "dtm", todf = FALSE, must_exact = FALSE)
   }
   if (todf == TRUE) {
     rownames(df) <- 1:nrow(df)
+	df[,1] <- enc2utf8(df[,1])
     return(df)
   }
   else {
     to_paste <- paste(df[, 1], df[, 2], sep = "&")
-    for (i in to_paste) message(i)
+    for (i in to_paste) cat(i, "\n")
   }
 }

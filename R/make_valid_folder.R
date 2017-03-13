@@ -10,7 +10,8 @@ make_valid_folder <- function(x, return_null = TRUE, last_slash = TRUE) {
   else {
     if (!is_character_vector(x, len = 1)) 
       stop("You must provide a length 1 character of valid folder name.")
-    x <- gsub("\\\\", "/", x)
+    x <- whetherencode(x)
+	x <- gsub("\\\\", "/", x)
     if (!dir.exists(x)) {
       x <- gsub("/+$|\\\\+$", "", x)
       tryCatch(expr = {

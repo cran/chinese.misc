@@ -1,6 +1,18 @@
                    chinese.misc NEWS and CHANGELOG
 =========================================================
 
+## 0.1.3 (2017-03-11)
+
+* [BUGFIX] #1: Modify the funtion scancn, but there is no user-visible change.
+
+* [NEW FEATURE] #3: Some functions temporally modify locale values internally.
+
+* [NEW FEATURE] #2: Add a new function topic_trend to compute in/decrease of topics through years.
+
+* [NEW FEATURE] #1: Add a new function word_cor to compute word correlation.
+
+-------------------------------------------------------------------------------
+
 ## 0.1.2 (2017-03-04)
 
 * [BUGFIX] #2: This version is compatible with package tm (>=0.7), where as the function corp_or_dtm in the previous version sometimes raise error due to the update of tm.

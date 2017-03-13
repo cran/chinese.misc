@@ -141,6 +141,8 @@
 corp_or_dtm <-
 function(..., from = "dir", type = "corpus", enc = "auto", mycutter = DEFAULT_cutter, stop_word = NULL, stop_pattern = NULL, control = "auto",
   myfun1 = NULL, myfun2 = NULL, special = "") {
+  INFOLOCALE <- localestart2()
+  on.exit(localeend2(INFOLOCALE))
   message("CHECKING ARGUMENTS")
   if (!is.null(stop_word)) {
     stop_word <- as.character2(stop_word)
@@ -148,10 +150,14 @@ function(..., from = "dir", type = "corpus", enc = "auto", mycutter = DEFAULT_cu
     if (length(stop_word) == 0) 
       stop_word <- NULL
   }
-  if (!is.null(myfun1)) 
+  if (!is.null(myfun1)){
     stopifnot(is.function(myfun1))
-  if (!is.null(myfun2)) 
+	FUN1 <- match.fun(myfun1)
+  }
+  if (!is.null(myfun2)){
     stopifnot(is.function(myfun2))
+	FUN2 <- match.fun(myfun2)
+  }
   if (!is.null(stop_pattern)) 
     stopifnot(all(!is.na(stop_pattern)))
   if (is.null(type)) 
@@ -166,7 +172,7 @@ function(..., from = "dir", type = "corpus", enc = "auto", mycutter = DEFAULT_cu
   input[is.na(input)] <- ""
   if (from == "dir") {
     message("PROCESSING FILE NAMES")
-    fullname <- dir_or_file(input, special = special)
+    fullname <- dir_or_file_self(input, special = special)
     seged_vec <- rep(NA, length(fullname))
     message("READING AND PROCESSING FILES")
     for (i in 1:length(fullname)) {
@@ -174,7 +180,6 @@ function(..., from = "dir", type = "corpus", enc = "auto", mycutter = DEFAULT_cu
       the_enc <- gEtthEEnc(x1 = fi, x2 = enc)
       conved <- scancn(fi, enc = the_enc)
       if (!is.null(myfun1) && grepl("[^[:space:]]", conved) == TRUE) {
-        FUN1 <- match.fun(myfun1)
         conved <- FUN1(conved)
 		conved <- AftEr_myfUn(conved)
       }	  
@@ -183,7 +188,6 @@ function(..., from = "dir", type = "corpus", enc = "auto", mycutter = DEFAULT_cu
         conved <- gsub("\\s+", " ", conved)
       }
       if (!is.null(myfun2) && grepl("[^[:space:]]", conved) == TRUE) {
-        FUN2 <- match.fun(myfun2)
         conved <- FUN2(conved)
 		conved <- AftEr_myfUn(conved, pa = TRUE)
       }
@@ -209,7 +213,6 @@ function(..., from = "dir", type = "corpus", enc = "auto", mycutter = DEFAULT_cu
         ii <- " "
       }
       if (is.function(myfun1) && grepl("[^[:space:]]", ii) == TRUE) {
-        FUN1 <- match.fun(myfun1)
         ii <- FUN1(ii)
         ii <- AftEr_myfUn(ii)
 	  }
@@ -218,7 +221,6 @@ function(..., from = "dir", type = "corpus", enc = "auto", mycutter = DEFAULT_cu
         ii <- gsub("\\s+", " ", ii)
       }
       if (is.function(myfun2) && grepl("[^[:space:]]", ii) == TRUE) {
-        FUN2 <- match.fun(myfun2)
         ii <- FUN2(ii)
         ii <- AftEr_myfUn(ii, pa = TRUE)
       }
@@ -235,7 +237,7 @@ function(..., from = "dir", type = "corpus", enc = "auto", mycutter = DEFAULT_cu
   corp <- tm::tm_map(corp, tm::content_transformer(tolower))
   if (!is.null(stop_word)) {
     if (stop_word[1] %in% c("jiebar", "auto")) {
-      corp <- tm::tm_map(corp, tm::removeWords, c(make_stoplist("jiebar", print = FALSE)))
+      corp <- tm::tm_map(corp, tm::removeWords, c(find_jiebar_stop()))
     }
     else {
       corp <- tm::tm_map(corp, tm::removeWords, c(stop_word))
@@ -253,8 +255,8 @@ function(..., from = "dir", type = "corpus", enc = "auto", mycutter = DEFAULT_cu
   }
   else if (grepl("^d|^D|^t|^T", type)) {
     message("MAKING DTM/TDM")
-    totdm=ifelse (grepl("^d|^D", type), FALSE, TRUE)
-    DTMname <- rE_dtm(corp, totdm = totdm, re_control = control)
+    todtm=ifelse (grepl("^d|^D", type), TRUE, FALSE)
+    DTMname <- rE_dtm(corp, todtm = todtm, re_control = control)
 	rm(corp)
 	if (from == "dir"){
 		DTMname$dimnames$Docs <- fullname

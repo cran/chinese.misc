@@ -33,6 +33,8 @@ function(term, num) {
       stop("The length of term must be equal to that of num.")
     if (any(is.na(term))) 
       warning("NA in argument term is represented by the letters NA.")
-    return(paste(rep(term, num), collapse = " "))
+    to_return <- paste(rep(term, num), collapse = " ")
+	to_return <- whetherencode(to_return)
+	return(to_return)
   }
 }

@@ -74,10 +74,7 @@ So, whenever you want to use this default value, either you do not set
 \code{mycutter}, or 
 set it to \code{mycutter = chinese.misc::DEFAULT_cutter}.
 
-The encoding for writing files (if \code{folder} is not NULL) depends on the encodings 
-of files the function reads. If it is "GB18030", "GBK", "GB2312" or other encoding 
-that has "GB" in it (case insensitive), 
-the file will be written in "GB18030", otherwise, "UTF-8".
+The encoding for writing files (if \code{folder} is not NULL) is always "UTF-8".
 }
 \examples{
 require(jiebaR)
