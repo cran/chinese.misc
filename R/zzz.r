@@ -12,4 +12,17 @@
     }
   )
   assign("stringistatus", trystringistatus, envir = env)
-}
+  onload_right_locale <- tryCatch(
+	expr = {
+	  ifelse(.Platform$OS.type == "windows", "Chinese (Simplified)_China.936", "zh_CN.UTF-8")
+	}, 
+	error = function(e){
+	  return(NA)
+	}
+  )
+  op <- options()
+  CHI_MISC_OPT <- list(tmp_chi_locale = onload_right_locale)
+  CHI_MISC_OPT_name <- names(CHI_MISC_OPT)
+  toset <- !(CHI_MISC_OPT_name %in% names(op))
+  if(any(toset)) options(CHI_MISC_OPT[toset])
+} 

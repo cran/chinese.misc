@@ -146,7 +146,6 @@ when loading package, which sets
 word length to 2 to 25.
 }
 \examples{
-require(tm)
 x <- c(
   "Hello, what do you want to drink?", 
   "drink a bottle of milk", 

@@ -1,14 +1,20 @@
 localestart2 <- function(){
 	y <- tryCatch(
 		expr = {
-			s1 <- Sys.getlocale("LC_COLLATE")
-			s2 <- Sys.getlocale("LC_CTYPE")
-			if (s1 == "Chinese (Simplified)_China.936" & s2 == "Chinese (Simplified)_China.936"){
+			s_right_locale = getOption("tmp_chi_locale")
+			if (is.null(s_right_locale) || is.na(s_right_locale)){
+				stop("not change")
+			}
+			if (identical(s_right_locale, "auto")){
+				s_right_locale <- ifelse(.Platform$OS.type == "windows", "Chinese (Simplified)_China.936", "zh_CN.UTF-8")
+			}
+			s <- Sys.getlocale("LC_CTYPE")
+			if (s == s_right_locale){
 				yy <- "n"
 			} else {
-				Sys.setlocale(category = "LC_COLLATE", "Chinese (Simplified)_China.936")
-				Sys.setlocale(category = "LC_CTYPE", "Chinese (Simplified)_China.936")
-				yy <- c("y", s1, s2)
+				Sys.setlocale(category = "LC_COLLATE", s_right_locale)
+				Sys.setlocale(category = "LC_CTYPE", s_right_locale)
+				yy <- c("y", s)
 			}
 			yy
 		},
@@ -24,7 +30,7 @@ localeend2 <- function(x){
 		expr = {
 			if (x[1] == "y"){
 				Sys.setlocale(category = "LC_COLLATE", x[2])
-				Sys.setlocale(category = "LC_CTYPE", x[3])
+				Sys.setlocale(category = "LC_CTYPE", x[2])
 			}
 		},
 		error = function(e){
