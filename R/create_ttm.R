@@ -90,7 +90,7 @@ function(x, type = "dtm", tomatrix = FALSE, checks = TRUE){
 		x <- Matrix::crossprod(x)
 	}
 	if (truetype == 2){
-		x <- Matrix::sparseMatrix(i = x$i, j = x$j, x=x$v, dims = c(x$nrow, x$nco))
+		x <- Matrix::sparseMatrix(i = x$i, j = x$j, x=x$v, dims = c(x$nrow, x$ncol))
 		x <- Matrix::tcrossprod(x)
 	}
 	if (!tomatrix){

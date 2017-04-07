@@ -31,6 +31,8 @@ function(x, outputfile = NULL, doc_name = NULL) {
   on.exit(localeend2(infolocale))
   if (!"simple_triplet_matrix" %in% class(x)) 
     stop("Argument x must be a dtm or a tdm object.")
+  if (!is.null(outputfile))
+      stopifnot(is.character(outputfile) && grepl("\\.csv$", outputfile[1]))
   if (!is.null(doc_name)) {
     if (any(is.na(doc_name))) 
       stop("doc_name should not contain NA.")
@@ -45,7 +47,6 @@ function(x, outputfile = NULL, doc_name = NULL) {
     return(myfreq)
   }
   else {
-    stopifnot(is.character(outputfile) && grepl("\\.csv$", outputfile[1]))
     utils::write.csv(myfreq, outputfile[1])
   }
 }

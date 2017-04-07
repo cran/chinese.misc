@@ -1,6 +1,15 @@
                    chinese.misc NEWS and CHANGELOG
 =========================================================
 
+## 0.1.5 (2017-04-07)
+
+* [NEW FEATURE] #3: A new function dictionary_dtm is added to count term frequencies in groups.
+
+* [NEW FEATURE] #2: Now the computation work of sort_tf and word_cor  is done with sparse matrix to save memory rather than first converting the object into dense matrix.
+
+* [NEW FEATURE] #1: The function word_cor now can compute up to 200 words' correlation, while the previous limit is 30.
+
+-------------------------------------------------------------------------------
 ## 0.1.4 (2017-03-23)
 
 * [NEW FEATURE] #2: Users now can set their own locales in options( ) and view it by get_tmp_chi_locale( ).

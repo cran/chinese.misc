@@ -13,7 +13,7 @@ you must specify its type by the argument \code{type}. If it is a matrix, \code{
 and rownames/colnames that are taken as words should not be \code{NULL}.}
 
 \item{word}{a character vector of words that you want to know their correlation in you data. If 
-it is not a vector, the function will try to coerce. The length of it should not larger than 30. The function
+it is not a vector, the function will try to coerce. The length of it should not larger than 200. The function
 only computes for words that do exist in data, and those not in data will not be included.}
 
 \item{type}{if it starts with "d/D", it represents a DTM; if with "t/T", TDM; others are not valid. This

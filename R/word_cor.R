@@ -8,7 +8,7 @@
 #' you must specify its type by the argument \code{type}. If it is a matrix, \code{NA} is not allowed, 
 #' and rownames/colnames that are taken as words should not be \code{NULL}.
 #' @param word a character vector of words that you want to know their correlation in you data. If 
-#' it is not a vector, the function will try to coerce. The length of it should not larger than 30. The function
+#' it is not a vector, the function will try to coerce. The length of it should not larger than 200. The function
 #' only computes for words that do exist in data, and those not in data will not be included.
 #' @param type if it starts with "d/D", it represents a DTM; if with "t/T", TDM; others are not valid. This
 #' is only used when x is a matrix. The default is "dtm".
@@ -40,21 +40,21 @@ function(x, word, type = "dtm", method = "kendall", p = NULL, min = NULL){
     infolocale <- localestart2()
     on.exit(localeend2(infolocale))
 	if (identical(class(x)[1], "DocumentTermMatrix")){
-		truetype <- "dtm"
+		truetype <- 1
 		all_word <- x$dimnames$Terms
 	} else if (identical(class(x)[1] , "TermDocumentMatrix")){
 		all_word <- x$dimnames$Terms
-		truetype <- "tdm"
+		truetype <- 2
 	} else if (identical(class(x)[1], "matrix")){
 		if (!is_character_vector(type, len = 1))
 			stop ("When x is matrix, type must tell me its type: dtm or tdm.")
 		if (grepl("^d|^D", type)){
-			truetype <- "dtm"
+			truetype <- 3
 			all_word <- colnames(x)
 			if (is.null(all_word))
 				stop ("colnames as words should not be NULL.")
 		} else if (grepl("^t|^T", type)){
-			truetype <- "tdm"
+			truetype <- 4
 			all_word <- rownames(x)
 			if (is.null(all_word))
 				stop("rownames as words should not be NULL.")
@@ -70,8 +70,8 @@ function(x, word, type = "dtm", method = "kendall", p = NULL, min = NULL){
 	if (!is.null(min))
 		stopifnot(is.numeric(min), length(min) == 1)
 	word <- as.character2(word)
-	if (length(word) > 30)
-		stop("Argument word allows input of not more than 30 words.")
+	if (length(word) > 200)
+		stop("Argument word allows input of not more than 200 words.")
 	if (any(is.na(word)))
 		stop("Argument word should not have NA.")
 	all_word <- sort(all_word)
@@ -80,28 +80,44 @@ function(x, word, type = "dtm", method = "kendall", p = NULL, min = NULL){
 	if (length(word) < 2)
 		stop("At least 2 words should be left.")
 	pos <- match(word, all_word)
-	if (truetype == "dtm"){
-		dat <- x[, pos]
+	if (truetype %in% c(1, 3)){
+		x <- x[, pos]
 	} else {
-		dat <- t(x[pos, ])
+		x <- t(x[pos, ])
 	}
-	if (class(x)[1] != "matrix")
-		dat <- as.matrix(dat)
-	nc <- ncol(dat)
+	nc <- ncol(x)
 	correlation <- matrix(NA, nrow = nc, ncol = nc)
 	pvalue <- matrix(NA, nrow = nc, ncol = nc)
-	for (i in 1: nc){
-		for (j in 1: nc){
-			if (i > j){
-				cc <- stats::cor.test(x = dat[, i], y = dat[, j], method = method, exact = FALSE)
-				cc1 <- round(cc$estimate, 4)
-				correlation[i, j] <- cc1
-				correlation[j, i] <- cc1
-				cc2 <- round(cc$p.value, 4)
-				pvalue[i, j] <- cc2 
-				pvalue[j, i] <- cc2 
+	if (truetype %in% c(3, 4)){
+		for (i in 1: nc){
+			for (j in 1: nc){
+				if (i > j){
+					cc <- stats::cor.test(x = x[, i], y = x[, j], method = method, exact = FALSE)
+					cc1 <- round(cc$estimate, 4)
+					correlation[i, j] <- cc1
+					correlation[j, i] <- cc1
+					cc2 <- round(cc$p.value, 4)
+					pvalue[i, j] <- cc2 
+					pvalue[j, i] <- cc2 
+				}
 			}
 		}
+	} else {
+		for (i in 1: nc){
+			ii <- as.numeric(as.matrix(x[, i]))
+			for (j in 1: nc){
+				jj <- as.numeric(as.matrix(x[, j]))
+				if (i > j){
+					cc <- stats::cor.test(x = ii, y = jj, method = method, exact = FALSE)
+					cc1 <- round(cc$estimate, 4)
+					correlation[i, j] <- cc1
+					correlation[j, i] <- cc1
+					cc2 <- round(cc$p.value, 4)
+					pvalue[i, j] <- cc2 
+					pvalue[j, i] <- cc2 
+				}
+			}
+		}		
 	}
 	rownames(correlation) <- word
 	colnames(correlation) <- word

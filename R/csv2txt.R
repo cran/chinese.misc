@@ -75,7 +75,11 @@ function(csv, folder, which, header = TRUE, row.names = NULL, na_in_csv = c(NA, 
   if (!is.null(row.names) & !identical(row.names, 1)) {
     stop("Argument row.names should only be NULL or 1.")
   }
-  df <- utils::read.csv(csv, header = header, row.names = ifelse(is.null(row.names), NULL, 1), stringsAsFactors = FALSE)
+  if (is.null(row.names)){
+	df <- utils::read.csv(csv, header = header, stringsAsFactors = FALSE)
+  } else {
+	df <- utils::read.csv(csv, header = header, row.names =1, stringsAsFactors = FALSE)
+  }
   all_text <- as.character(df[, which])
   if (!is.null(name_col)) {
     if (!is_positive_integer(name_col, len = 1)) 

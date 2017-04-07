@@ -60,35 +60,41 @@ sort_tf <- function(x, top = 10, type = "dtm", todf = FALSE, must_exact = FALSE)
   if (class(x)[1] %in% c("matrix")) {
     stopifnot(grepl("^d|^D|^t|^T", type))
     if (grepl("^d|^D", type)) 
-      inner_type <- "dtm"
+      inner_type <- 3
     if (grepl("^t|^T", type)) 
-      inner_type <- "tdm"
+      inner_type <- 4
     check_num <- apply(x, 2, is.numeric)
     if (!all(check_num)) 
       stop("Please make every column of x is numeric.")
   }
   else if ("TermDocumentMatrix" %in% class(x)) {
-    inner_type <- "tdm"
-    x <- as.matrix(x)
+    inner_type <- 2
   }
   else if ("DocumentTermMatrix" %in% class(x)) {
-    inner_type <- "dtm"
-    x <- as.matrix(x)
+    inner_type <- 1
   }
   else {
     stop("Class of x should be matrix, DocumentTermMatrix or TermDocumentMatrix.")
   }
-  if (inner_type == "tdm") {
+  if (inner_type == 4) {
     freq <- rowSums(x)
     word <- rownames(x)
     if (is.null(word)) 
       word <- paste("term", 1:nrow(x), sep = "")
   }
-  if (inner_type == "dtm") {
+  if (inner_type == 3) {
     freq <- colSums(x)
 	word <- colnames(x)
     if (is.null(word)) 
       word <- paste("term", 1:ncol(x), sep = "")
+  }
+  if (inner_type == 1) {
+    freq <- slam::col_sums(x)
+	word <- tm::Terms(x)
+  } 
+  if (inner_type == 2) {
+    freq <- slam::row_sums(x)
+	word <- tm::Terms(x)
   }
   o <- order(freq, decreasing = TRUE)
   freq <- freq[o]
