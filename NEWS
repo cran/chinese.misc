@@ -1,6 +1,14 @@
                    chinese.misc NEWS and CHANGELOG
 =========================================================
 
+## 0.1.6 (2017-05-03)
+
+* [BUGFIX] #2: scancn is modified in order to remove unicode replacement characters in texts.
+
+* [BUGFIX] #1: Now the $v of dtm created by corp_or_dtm do not have names, and is compatible with topicmodels::LDA.
+
+-------------------------------------------------------------------------------
+
 ## 0.1.5 (2017-04-07)
 
 * [NEW FEATURE] #3: A new function dictionary_dtm is added to count term frequencies in groups.

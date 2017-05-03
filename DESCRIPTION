@@ -1,8 +1,8 @@
 Package: chinese.misc
 Type: Package
 Title: Miscellaneous Tools for Chinese Text Mining and More
-Version: 0.1.5
-Date: 2017-04-07
+Version: 0.1.6
+Date: 2017-05-03
 Authors@R: c(person("Jiang", "Wu", role = c("aut", "cre"),
 					email = "textidea@sina.com",
                     comment = "from Tsinghua University"))
@@ -21,7 +21,7 @@ LazyLoad: true
 LazyData: true
 RoxygenNote: 6.0.1
 NeedsCompilation: no
-Packaged: 2017-04-07 03:14:11 UTC; useruser
+Packaged: 2017-05-03 05:51:53 UTC; useruser
 Author: Jiang Wu [aut, cre] (from Tsinghua University)
 Repository: CRAN
-Date/Publication: 2017-04-07 06:05:06 UTC
+Date/Publication: 2017-05-03 06:10:42 UTC

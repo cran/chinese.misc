@@ -41,6 +41,8 @@ function(x, todtm = FALSE, re_control = list(wordLengths = c(1, 25))) {
 		triple_j <- rep.int(1: docnum, lengths(lap_match))
 		rm(lap_match)
 		triple_v <- unlist(mapply("[", lap, lapply_name))
+		## names to be NULL for package topicmodels
+		names(triple_v) <- NULL
 		m <- slam::simple_triplet_matrix(triple_i, triple_j, triple_v, nrow = length(lapply_unique), ncol = docnum, dimnames = list(Terms = lapply_unique, Docs = NULL))
 		rm(triple_i, triple_j, triple_v, lapply_name)
 	}

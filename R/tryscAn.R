@@ -25,7 +25,7 @@ function(x, the_enc_in, read_2nd_in){
   if (identical(trytext, "rEAd_2nd")){
 	if (read_2nd_in){
 		if (stringistatus == 1){
-			trytext <- UsEstrIngI (x)
+			trytext <- UsEstrIngI2222(x)
 		} else {
 		    fsize <- file.info(x)$size
 			BIN <- readBin(x, what = "raw", size = 1, n = fsize)
