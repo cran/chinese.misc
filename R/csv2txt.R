@@ -1,6 +1,6 @@
 #' Write Texts in CSV into Many TXT/RTF Files
 #'
-#' The function writes texts in a given .csv file into seperated .txt/.rtf files with file names added.
+#' The function writes texts in a given .csv file into separated .txt/.rtf files with file names added.
 #'
 #' Arguments \code{which} and \code{name_col} should be set in accordance 
 #' with \code{row.names}. Suppose your .csv file has 3 columns, the 1st column is for row names, 
@@ -25,7 +25,7 @@
 #' created by the function. The folder may 
 #' already exist. If it does not exist, the function will try to create it recursively. If it cannot 
 #' be created, an error will be raised. See \code{\link{dir.create}}. Note: a name that contains 
-#' no punctuation is prefered.
+#' no punctuation is preferred.
 #' @param which a number: which column contains texts. See Details
 #' @param header should the .csv file be read with its first row as header? This argument is 
 #' passed to \code{\link{read.csv}}. Default is \code{TRUE}. 
@@ -65,7 +65,7 @@ csv2txt <-
 function(csv, folder, which, header = TRUE, row.names = NULL, na_in_csv = c(NA, "", " ", "?", "NA", "999"), na_in_txt = " ", name_col = NULL, ext = "txt") {
   INFOLOCALE <- localestart2()
   on.exit(localeend2(INFOLOCALE))
-  if (!grepl("\\.csv$|\\.CSV", csv)) 
+  if (!grepl("\\.csv$|\\.CSV$", csv)) 
     stop("csv must be a csv file.")
   if (!is_character_vector(na_in_txt, len = 1)) 
     stop("na_in_txt must be a length 1 character.")
@@ -114,7 +114,8 @@ function(csv, folder, which, header = TRUE, row.names = NULL, na_in_csv = c(NA, 
   } 
   if (is.null(name_col)) {
     for (i in 1:all_len) {
-      utils::write.table(all_text[i], paste(folder, "/", file_name[i], ext2, sep = ""), quote = FALSE, row.names = FALSE, col.names = FALSE, fileEncoding = "UTF-8")
+	  null_name <- paste(folder, "/", file_name[i], ext2, sep = "")
+      utils::write.table(all_text[i], null_name, quote = FALSE, row.names = FALSE, col.names = FALSE, fileEncoding = "UTF-8")
     }
   }
   else {

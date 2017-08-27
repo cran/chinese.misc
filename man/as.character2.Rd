@@ -31,7 +31,7 @@ null_list <- list(a = NULL, b = NULL, c = NULL)
 as.character(null_list)
 as.character2(null_list)
 # Try a list with a data frame in it
-df <- data.frame(matrix(c(66,77,NA,99), nr = 2))
+df <- data.frame(matrix(c(66,77,NA,99), nrow = 2))
 l <- list(a = 1:4, b = factor(c(10,20,NA, 30)), c = c('x', 'y', NA, 'z'), d = df)
 as.character2(l)
 # Try a list of lists

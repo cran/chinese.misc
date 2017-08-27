@@ -26,7 +26,7 @@
 #' terms and their frequencies will be pasted by "&" and messaged on the screen, nothing is 
 #' returned. Otherwise, terms and frequencies will be returned as data frame.
 #' @param must_exact should be \code{TRUE} or \code{FALSE} (default). It decides whether 
-#' the number of returned words should be equal to that specified by \code{top}. See Detals.
+#' the number of returned words should be equal to that specified by \code{top}. See Details.
 #'
 #' @return return nothing and message the result, or return a data frame.
 #'

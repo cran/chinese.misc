@@ -8,6 +8,10 @@ As.chArActEr_in <- function(x) {
   else if (class(x)[1] == "data.frame") {
     return(inner_from_df(x))
   }
+  else if (class(x)[1] == "SimpleCorpus") {
+    x$meta$language <- NULL
+    return(x$content)
+  }  
   else {
     return(as.character(x))
   }

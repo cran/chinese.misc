@@ -45,7 +45,7 @@ words by tagging and make the texts "slim".
 \url{http://www.docin.com/p-341417726.html?_t_t_t=0.3930890985844252} 
 provides details about Chinese word tags.
 
-Only words with the folloing tags are to be preserved: 
+Only words with the following tags are to be preserved: 
 \itemize{
   \item (1) "n": nouns;
   \item (2) "t": time related words;
@@ -60,7 +60,7 @@ Only words with the folloing tags are to be preserved:
 }
 
 Optionally, words related to a specified place ("ns"), time related words ("t") and 
-english words ("eng") can be removed.
+English words ("eng") can be removed.
 
 By default, a \code{DEFAULT_cutter} is used by the \code{mycutter} argument, which is 
 assigned as \code{worker(write = FALSE)} when loading the package. 

@@ -14,7 +14,7 @@
 #' If trendLevel is smaller than 0.05, than "significant rise" or "significant fall". 
 #'   \item (4) maxminYear: if totalTrend is "rise" or "significant rise", then this value
 #' points out which year has the largest amount. If several years have the largest 
-#' value, the most recent year is retured. If totalTrend is "fall" or "significant fall", 
+#' value, the most recent year is returned. If totalTrend is "fall" or "significant fall", 
 #' the year has the smallest amount is returned.
 #'   \item (5) detailTrend: if totalTrend is "rise" or "significant rise", then the function
 #' will see whether the year has the largest amount is the last year, if it is, then 
@@ -41,7 +41,7 @@
 #' try to coerce. The length of topic and year should be the same. No \code{NA}
 #' is allowed.
 #' @param relative if \code{FALSE} (default), the numbers of topics is used. If 
-#' \code{TRUE}, the pecentage of a topic in a year against the total number
+#' \code{TRUE}, the percentage of a topic in a year against the total number
 #' of that year is used. Suppose this year we have 200 texts on art, and the total
 #' number of texts in this year is 1000, then the relative value 
 #' is 200/1000 = 0.2 rather than the absolute number 200. Note: if to use

@@ -10,7 +10,7 @@ output_dtm(x, outputfile = NULL, doc_name = NULL)
 \item{x}{an object created by \code{\link[tm]{TermDocumentMatrix}} 
 or \code{\link[tm]{DocumentTermMatrix}}.}
 
-\item{outputfile}{when it is NULL (default), no file is writen and a matrix is returned. 
+\item{outputfile}{when it is NULL (default), no file is written and a matrix is returned. 
 When a filename is provided, it will write the matrix into a file. The filename must end 
 with ".csv".}
 

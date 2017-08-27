@@ -5,7 +5,7 @@
 #'
 #' @param x an object created by \code{\link[tm]{TermDocumentMatrix}} 
 #' or \code{\link[tm]{DocumentTermMatrix}}.
-#' @param outputfile when it is NULL (default), no file is writen and a matrix is returned. 
+#' @param outputfile when it is NULL (default), no file is written and a matrix is returned. 
 #' When a filename is provided, it will write the matrix into a file. The filename must end 
 #' with ".csv".
 #' @param doc_name whether \code{NULL} or a character vector specifying the 

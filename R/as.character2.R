@@ -23,13 +23,30 @@
 #' as.character(null_list)
 #' as.character2(null_list)
 #' # Try a list with a data frame in it
-#' df <- data.frame(matrix(c(66,77,NA,99), nr = 2))
+#' df <- data.frame(matrix(c(66,77,NA,99), nrow = 2))
 #' l <- list(a = 1:4, b = factor(c(10,20,NA, 30)), c = c('x', 'y', NA, 'z'), d = df)
 #' as.character2(l)
 #' # Try a list of lists
 #' l2 <- list(l, l, cha = c('a', 'b', 'c'))
 #' as.character2(l2)
 as.character2 <- function(...) {
+  X <- list(...)
+  lengthX <- length(X)  
+  if (lengthX == 0){
+	FINAL <- character(0)
+  } else {
+    FINAL <- unlist(lapply(1: lengthX, EAch_chA_fInAl, object = X))
+  }	
+  if (is.null(FINAL)){
+	FINAL <- character(0)
+  }
+  if (!is.vector(FINAL)) 
+    stop("Coersion failed.")
+  names(FINAL) <- NULL
+  return(FINAL)
+}
+
+as.character2_2 <- function(...) {
   X <- list(...)
   if (length(X) == 0){
 	FINAL <- character(0)
@@ -49,6 +66,10 @@ as.character2 <- function(...) {
       else if (class(x)[1] == "list") {
     	final <- list.as.character(x)
       }
+      else if (class(x)[1] == "SimpleCorpus") {
+	    x$meta$language <- NULL
+    	final <- x$content
+      }	  
       else {
     	final <- as.character(x)
       }
@@ -56,10 +77,33 @@ as.character2 <- function(...) {
     }
   }  
   if (is.null(FINAL)){
-	final <- character(0)
+	FINAL <- character(0)
   }
   if (!is.vector(FINAL)) 
     stop("Coersion failed.")
   names(FINAL) <- NULL
   return(FINAL)
+}
+
+EAch_chA_fInAl <- function(i, object){
+  obj <- object[[i]]
+  if (is.null(obj)) {
+	return(character(0))
+  }
+  else if (length(obj) == 0) {
+	return(character(0))
+  }
+  else if (class(obj)[1] == "data.frame") {
+	return(inner_from_df(obj))
+  }
+  else if (class(obj)[1] == "list") {
+	return(list.as.character(obj))
+  }
+  else if (class(obj)[1] == "SimpleCorpus") {
+    obj$meta$language <- NULL
+	return(obj$content)
+  }	  
+  else {
+	return(as.character(obj))
+  }
 }

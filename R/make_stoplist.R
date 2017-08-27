@@ -15,7 +15,7 @@
 #'
 #' @param x a length 1 character specifying a valid stop word file. 
 #' If it is not provided,  or 
-#' is "jiebar" (default) or "auto", it will return part of the stop words used by package 
+#' is "jiebar" (default), "jiebaR" or "auto", it will return part of the stop words used by package 
 #' \code{jiebaR}.
 #' See Details.
 #' @param print \code{TRUE} or \code{FALSE}, whether to print the first 5 words
@@ -33,11 +33,11 @@ function(x = "jiebar", print = TRUE) {
     message("x has length > 1, only the 1st is used.")
   }
   x <- whetherencode(x)
-  if (!identical(x, "jiebar") & !identical(x, "auto")){
+  if (!identical(x, "jiebar") & !identical(x, "auto") & !identical(x, "jiebaR")){
     if (!(file.exists(x) & ! dir.exists(x)))
       stop('x must be a valid filename.')
   } 
-  if (x == "jiebar" | x == "auto") {
+  if (x == "jiebar" | x == "auto" | x == "jiebaR") {
     ST <- readLines(jiebaR::STOPPATH, encoding = Ruchardet::detectFileEncoding(jiebaR::STOPPATH))
     ST <- ST[-c(1:127, 137, 148:155, 878:882, 1180:1206, 1359, 1526:1534)]
 	ST <- ST[!grepl("[a-zA-Z]", ST)]

@@ -3,10 +3,10 @@
 #' This function is simply a wrapper of \code{rep}, but allows different structures of input.
 #' For rewriting more texts in the same time, see \code{\link{m2doc}}.
 #'
-#' @param term terms that you want to rewrite into a text. A character vector is prefered, but 
+#' @param term terms that you want to rewrite into a text. A character vector is preferred, but 
 #' matrix, list, data frame are also OK. \code{NA} in the argument will be taken as 
 #' letters "NA" and repeated.
-#' @param num frequencies of terms in \code{term}. A numeric vector is prefered, but 
+#' @param num frequencies of terms in \code{term}. A numeric vector is preferred, but 
 #' matrix, list, data frame are also OK. Its length must be equal to that of \code{term}.
 #' No \code{NA} is allowed.
 #'

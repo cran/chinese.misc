@@ -47,7 +47,7 @@ function(x, len = NULL) {
     y <- FALSE
   }
   else if (length(x)==0){
-	y=FALSE
+	y <- FALSE
   } 
   else {
     as_int <- as.integer(x)

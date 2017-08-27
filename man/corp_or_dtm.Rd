@@ -33,7 +33,7 @@ to let the function auto-detect encoding for each file.}
 \item{mycutter}{the jiebar cutter to segment text. A default cutter is used. See Details.}
 
 \item{stop_word}{a character vector to specify stop words that should be removed. 
-If it is \code{NULL}, nothing is removed. If it is "jiebar" or "auto", the stop words used by 
+If it is \code{NULL}, nothing is removed. If it is "jiebar", "jiebaR" or "auto", the stop words used by 
 \pkg{jiebaR} are used, see \code{\link{make_stoplist}}.
 Please note the default value is \code{NULL}. Texts are transformed to lower case before 
 removing stop words, so your stop words only need to contain lower case characters.}
@@ -67,7 +67,7 @@ See \code{\link{dir_or_file}}.}
 a corpus, or document term matrix, or term document matrix.
 }
 \description{
-This function allows you to input a vectoer of characters, or a mixture of files and folders, it 
+This function allows you to input a vector of characters, or a mixture of files and folders, it 
 will automatically detect file encodings, segment Chinese texts, 
 do specified modification, 
 remove stop words,  and then generate corpus or dtm (tdm). Since \pkg{tm} 
@@ -115,7 +115,7 @@ so if a Chinese words is of 4 characters, the min value
 of wordLengths is 8. But here in \code{corp_or_dtm}, word length is exactly
 the same as what you see on the screen. So, a Chinese word with 4 characters is
 of length 4 rather than 8.
-  \item (2) dictionary: a character vetor of the words which will appear in DTM/TDM 
+  \item (2) dictionary: a character vector of the words which will appear in DTM/TDM 
 when you do not want a full one. If none of the words in the dictionary appears in 
 corpus, a blank DTM/TDM will be created. The vector should not contain 
 \code{NA}, if it does, only non-NA elements will be kept. Make sure at least 1
@@ -125,7 +125,7 @@ your control list, wordLengths will be ignored.
 of words. Only words whose total frequencies are in this range will appear in 
 the DTM/TDM. 0 and \code{inf} is not allowed. Let a large enough value to 
 indicate the unlimited ceiling.
-  \item (4) have: an interger vector of length 2 which limits the time a word 
+  \item (4) have: an integer vector of length 2 which limits the time a word 
 appears in the corpus. Suppose a word appears 3 times in the 1st article and 2 
 times in the 2nd article, and 0 in the 3rd, 
 then its bounds value = 3 + 2 + 0 = 5; but its have 

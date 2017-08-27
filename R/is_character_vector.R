@@ -24,7 +24,7 @@
 #'   \item (5) if the vector is of length>1, all the elements are \code{NA}, 
 #' but the vector's class is not character, it returns \code{FALSE}. 
 #'   \item (6) if a character vector is of length>1, and all the elements
-#' are \code{NA}, then the result depends on augument \code{allow_all_na}, if 
+#' are \code{NA}, then the result depends on argument \code{allow_all_na}, if 
 #' \code{allow_all_na = TRUE}, then \code{TRUE}, otherwise, \code{FALSE}.
 #' }
 #'
@@ -35,7 +35,7 @@
 #' which means any length is OK.
 #' @param allow_all_na for length>1 character vector whose elements are 
 #' all \code{NA}, if this argument is \code{FALSE}, then the function returns \code{FALSE}, 
-#' if this augument is \code{TRUE} (default), then returns \code{TRUE}.
+#' if this argument is \code{TRUE} (default), then returns \code{TRUE}.
 #'
 #' @return \code{TRUE} or \code{FALSE}.
 #'

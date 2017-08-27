@@ -15,7 +15,7 @@ csv2txt(csv, folder, which, header = TRUE, row.names = NULL,
 created by the function. The folder may 
 already exist. If it does not exist, the function will try to create it recursively. If it cannot 
 be created, an error will be raised. See \code{\link{dir.create}}. Note: a name that contains 
-no punctuation is prefered.}
+no punctuation is preferred.}
 
 \item{which}{a number: which column contains texts. See Details}
 
@@ -47,7 +47,7 @@ If it is not one of the three, it is set to "".}
 nothing is returned and .txt/rtf files are written into the folder.
 }
 \description{
-The function writes texts in a given .csv file into seperated .txt/.rtf files with file names added.
+The function writes texts in a given .csv file into separated .txt/.rtf files with file names added.
 }
 \details{
 Arguments \code{which} and \code{name_col} should be set in accordance 

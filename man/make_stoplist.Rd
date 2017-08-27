@@ -9,7 +9,7 @@ make_stoplist(x = "jiebar", print = TRUE)
 \arguments{
 \item{x}{a length 1 character specifying a valid stop word file. 
 If it is not provided,  or 
-is "jiebar" (default) or "auto", it will return part of the stop words used by package 
+is "jiebar" (default), "jiebaR" or "auto", it will return part of the stop words used by package 
 \code{jiebaR}.
 See Details.}
 

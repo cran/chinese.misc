@@ -22,7 +22,7 @@ document term matrix, users only need to input folder names or file names, and t
 will automatically detect file encoding, segment terms, modify texts, 
 remove stop words. 
 \code{txt2csv} and \code{csv2txt} help convert the format of texts and do some data 
-cleaning. And there are some functions for object class assertion and coersion.
+cleaning. And there are some functions for object class assertion and coercion.
 }
 \examples{
 require(tm)

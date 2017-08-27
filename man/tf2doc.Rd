@@ -7,11 +7,11 @@
 tf2doc(term, num)
 }
 \arguments{
-\item{term}{terms that you want to rewrite into a text. A character vector is prefered, but 
+\item{term}{terms that you want to rewrite into a text. A character vector is preferred, but 
 matrix, list, data frame are also OK. \code{NA} in the argument will be taken as 
 letters "NA" and repeated.}
 
-\item{num}{frequencies of terms in \code{term}. A numeric vector is prefered, but 
+\item{num}{frequencies of terms in \code{term}. A numeric vector is preferred, but 
 matrix, list, data frame are also OK. Its length must be equal to that of \code{term}.
 No \code{NA} is allowed.}
 }

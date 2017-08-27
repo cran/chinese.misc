@@ -134,9 +134,11 @@ dictionary_dtm <- function(x, dictionary, type = "dtm", simple_sum = FALSE, retu
 	if (identical(ori_class, "DocumentTermMatrix")){
 		truetype <- 1
 		all_word <- x$dimnames$Terms
+		fullname <- x$dimnames$Docs
 	} else if (identical(ori_class, "TermDocumentMatrix")){
 		truetype <- 2
 		all_word <- x$dimnames$Terms
+		fullname <- x$dimnames$Docs
 		x <- t(x)
 	} else if (identical(ori_class, "matrix")){
 		if (!is_character_vector(type, len = 1))
@@ -156,12 +158,18 @@ dictionary_dtm <- function(x, dictionary, type = "dtm", simple_sum = FALSE, retu
 			all_word <- colnames(x)
 			if (is.null(all_word))
 				stop ("colnames as words should not be NULL.")
+			fullname <- rownames(x)
+			if (is.null(fullname))
+				fullname <- as.character(1: nrow(x))
 			x <- slam::as.simple_triplet_matrix(x)
 		} else if (grepl("^t|^T", type)){
 			truetype <- 4
 			all_word <- rownames(x)
 			if (is.null(all_word))
 				stop("rownames as words should not be NULL.")
+			fullname <- colnames(x)
+			if (is.null(fullname))
+				fullname <- as.character(1: ncol(x))
 			x <- t(slam::as.simple_triplet_matrix(x))	
 		} else {
 			stop ("When x is matrix, type must tell me its type: dtm or tdm.")
@@ -208,7 +216,7 @@ dictionary_dtm <- function(x, dictionary, type = "dtm", simple_sum = FALSE, retu
 		}
 		names(summary_stm) <- dic_group_name
 	} else {
-		summary_stm$dimnames$Docs <- 1: stm_nrow
+		summary_stm$dimnames$Docs <- fullname
 	}
 	message("DONE")	
 	if (!return_dictionary){

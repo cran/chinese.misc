@@ -1,6 +1,6 @@
 #' Create Corpus or Document Term Matrix with 1 Line
 #'
-#' This function allows you to input a vectoer of characters, or a mixture of files and folders, it 
+#' This function allows you to input a vector of characters, or a mixture of files and folders, it 
 #' will automatically detect file encodings, segment Chinese texts, 
 #' do specified modification, 
 #' remove stop words,  and then generate corpus or dtm (tdm). Since \pkg{tm} 
@@ -47,7 +47,7 @@
 #' of wordLengths is 8. But here in \code{corp_or_dtm}, word length is exactly
 #' the same as what you see on the screen. So, a Chinese word with 4 characters is
 #' of length 4 rather than 8.
-#'   \item (2) dictionary: a character vetor of the words which will appear in DTM/TDM 
+#'   \item (2) dictionary: a character vector of the words which will appear in DTM/TDM 
 #' when you do not want a full one. If none of the words in the dictionary appears in 
 #' corpus, a blank DTM/TDM will be created. The vector should not contain 
 #' \code{NA}, if it does, only non-NA elements will be kept. Make sure at least 1
@@ -57,7 +57,7 @@
 #' of words. Only words whose total frequencies are in this range will appear in 
 #' the DTM/TDM. 0 and \code{inf} is not allowed. Let a large enough value to 
 #' indicate the unlimited ceiling.
-#'   \item (4) have: an interger vector of length 2 which limits the time a word 
+#'   \item (4) have: an integer vector of length 2 which limits the time a word 
 #' appears in the corpus. Suppose a word appears 3 times in the 1st article and 2 
 #' times in the 2nd article, and 0 in the 3rd, 
 #' then its bounds value = 3 + 2 + 0 = 5; but its have 
@@ -96,7 +96,7 @@
 #' to let the function auto-detect encoding for each file.
 #' @param mycutter the jiebar cutter to segment text. A default cutter is used. See Details.
 #' @param stop_word a character vector to specify stop words that should be removed. 
-#' If it is \code{NULL}, nothing is removed. If it is "jiebar" or "auto", the stop words used by 
+#' If it is \code{NULL}, nothing is removed. If it is "jiebar", "jiebaR" or "auto", the stop words used by 
 #' \pkg{jiebaR} are used, see \code{\link{make_stoplist}}.
 #' Please note the default value is \code{NULL}. Texts are transformed to lower case before 
 #' removing stop words, so your stop words only need to contain lower case characters.
@@ -204,7 +204,8 @@ function(..., from = "dir", type = "corpus", enc = "auto", mycutter = DEFAULT_cu
       stop("Some strings are identical to filenames in working directory, please make some changes.")
     }
     message("PROCESSING CHARACTER VECTOR")
-    seged_vec <- rep(NA, length(input))
+	length_of_v_input <- length(input)
+    seged_vec <- rep(NA, length_of_v_input)
     for (i in 1:length(input)) {
       ii <- input[i]
       if (ii %in% c(NA, "NA", "?") | grepl("[^[:space:]]", ii) == FALSE) {
@@ -235,7 +236,7 @@ function(..., from = "dir", type = "corpus", enc = "auto", mycutter = DEFAULT_cu
   corp <- tm::tm_map(corp, tm::removeNumbers)
   corp <- tm::tm_map(corp, tm::content_transformer(tolower))
   if (!is.null(stop_word)) {
-    if (stop_word[1] %in% c("jiebar", "auto")) {
+    if (stop_word[1] %in% c("jiebar", "auto", "jiebaR")) {
       corp <- tm::tm_map(corp, tm::removeWords, c(find_jiebar_stop()))
     }
     else {
@@ -261,6 +262,9 @@ function(..., from = "dir", type = "corpus", enc = "auto", mycutter = DEFAULT_cu
 		DTMname$dimnames$Docs <- fullname
 		rm(fullname)
 	}
+	if (from == "v"){
+		DTMname$dimnames$Docs <- as.character(1: length_of_v_input)
+	}	
     message("DONE")
 	return(DTMname)
   }

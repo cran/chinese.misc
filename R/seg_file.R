@@ -1,7 +1,7 @@
-#' Convenient Tool to Segemnt Chinese Texts
+#' Convenient Tool to Segment Chinese Texts
 #'
 #' The function first collects filenames or text vectors, then it 
-#' calls \code{\link[jiebaR]{segment}} to semgent texts. In 
+#' calls \code{\link[jiebaR]{segment}} to segment texts. In 
 #' this process, it allows users to do additional modification. 
 #' File encoding is detected automatically. 
 #' After segmenting, segmented words that belong to a text will be pasted 
@@ -35,7 +35,7 @@
 #' directory; if they are identical, an error will be raised. 
 #' To do this check is because if they are identical, the function 
 #' \code{segment} will take the input as a file to read!
-#' @param folder a lenght 1 character indicating the folder to put the segmented text. 
+#' @param folder a length 1 character indicating the folder to put the segmented text. 
 #' Set it to \code{NULL} if you want the result to be a character vector rather than to be written 
 #' on your disk. Otherwise, it should be a valid directory path, each segmented 
 #' text will be written into a .txt/.rtf file. If the specified folder does not exist, the function 
@@ -53,7 +53,7 @@
 #' three, it is set to "". This is only used when your input is a text vector rather than 
 #' filenames and you want to write the outcome into your disk.
 #'
-#' @return a character vector, each element is a segmented text, with words splited by " ". 
+#' @return a character vector, each element is a segmented text, with words splitted by " ". 
 #' If \code{folder} is a folder name, the result will be written into your disk and 
 #' nothing returns.
 #'
