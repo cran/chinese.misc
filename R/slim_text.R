@@ -24,7 +24,7 @@
 #' }
 #'
 #' Optionally, words related to a specified place ("ns"), time related words ("t") and 
-#' English words ("eng") can be removed.
+#' english words ("eng") can be removed.
 #'
 #' By default, a \code{DEFAULT_cutter} is used by the \code{mycutter} argument, which is 
 #' assigned as \code{worker(write = FALSE)} when loading the package. 

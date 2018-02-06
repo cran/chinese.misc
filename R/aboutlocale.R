@@ -44,8 +44,10 @@ whetherencode <- function(x){
 		expr = {
 			xx <- x
 			de <- suppressWarnings(Ruchardet::detectEncoding(x))
-			if (!de %in% c("UTF-8", "utf-8")){
-				xx <- stringi::stri_encode(xx, to = "UTF-8")
+			for (i in 1: length(de)){
+				if (! de[i] %in% c("UTF-8", "utf-8")){
+					xx[i] <- stringi::stri_encode(xx[i], to = "UTF-8")
+				}
 			}
 			xx
 		},

@@ -44,7 +44,7 @@ three, it is set to "". This is only used when your input is a text vector rathe
 filenames and you want to write the outcome into your disk.}
 }
 \value{
-a character vector, each element is a segmented text, with words splitted by " ". 
+a character vector, each element is a segmented text, with words split by " ". 
 If \code{folder} is a folder name, the result will be written into your disk and 
 nothing returns.
 }
@@ -54,7 +54,7 @@ calls \code{\link[jiebaR]{segment}} to segment texts. In
 this process, it allows users to do additional modification. 
 File encoding is detected automatically. 
 After segmenting, segmented words that belong to a text will be pasted 
-together into a single character with words splitted by " ".
+together into a single character with words split by " ".
 The segmented result will be returned or written 
 on the disk.
 }

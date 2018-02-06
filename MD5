@@ -1,6 +1,6 @@
-9b841104ee8635762daae223ff822625 *DESCRIPTION
-ad74bdb174c1522ee9f22e618967959c *NAMESPACE
-be2d07a20769f8fc7846909ca53ce5c9 *NEWS
+897257a7bed0d369824065e1cbd82c85 *DESCRIPTION
+6eadbecd815094efd9ca2cb88a495c56 *NAMESPACE
+24291d21aff94a012c8e2232c277fc19 *NEWS
 c5a5c081512c3fc180ff385c1fd3fe92 *R/AftEr_myfUn.R
 ecf37d2f28f28682134142349d9a71a1 *R/As.chArActEr_in.R
 03bde5044646756b5061f9b74b8768cc *R/DEFAULT_control1.R
@@ -12,11 +12,11 @@ b33ce76c937e257d2e8b7087dc0c0290 *R/VC.R
 9bd27540d7d38ef5076fd59e52dc6cc5 *R/VCR.R
 68d6bcb0f897f653068d9bd9e3cf7dff *R/VR.R
 9766ff0e4761c22194fbdf4be596ec8a *R/VRC.R
-8a092d48ae46bcec733b985a2b0880cb *R/aboutlocale.R
+e7a81652ed820fc52b645c9bba752b90 *R/aboutlocale.R
 7165baa591452cff61749ecb750accb3 *R/as.character2.R
 9c65f03986c31bf38c994ef5d6de7b80 *R/as.numeric2.R
 3155f8e4cc386b4654a212ee9c7d32f5 *R/chEck_cOntrOl.R
-74f2f22a5c29fb1a9156ab984510d2cd *R/corp_or_dtm.R
+12f08efc3e366d4b7b52277d1bf9066b *R/corp_or_dtm.R
 44cd0a9264bbbe633156cfe27a19ebe9 *R/create_ttm.R
 0d5c5c0ddbf4449f721998d73997eef0 *R/csv2txt.R
 12013406e8afc868f49bedc57d798c11 *R/dictionary_dtm.R
@@ -31,6 +31,7 @@ e929745e350ab14ab53ec4715373ae0b *R/is_character_vector.R
 2c20139268869232091abafdd002d3f4 *R/is_positive_integer.R
 893d5736f6f19c0e3160dc4cb1f942db *R/list.as.character.R
 3e73d0851d9b85f4b3cf51b5980b4682 *R/m2doc.R
+2d37b518cc6dd23fa4233561a75c7316 *R/m3m.R
 32e66e4c186c4730dea6fc79ccf7765a *R/make_stoplist.R
 436639bb3f361133e1fc4b35a136bd01 *R/make_valid_folder.R
 0afe680b0c3406a9f07139e9e8805c35 *R/match_pattern.R
@@ -38,8 +39,8 @@ e929745e350ab14ab53ec4715373ae0b *R/is_character_vector.R
 f8ef4dcb74e517e6d981e0345b1e2af7 *R/package-chinese.misc.R
 719994dc90fb696ff72fe90c81deea80 *R/scancn.R
 2aeed203973223f4a9d05a6231eac7f2 *R/second_dtm.R
-e936055c142673b3667111383d35a2a0 *R/seg_file.R
-9ea584ee88d8341c6413e9a563622087 *R/slim_text.R
+a6cca4c33850f07ad637a82be9543a4c *R/seg_file.R
+c18c27c2ebba7c5a56aaf264a3a8d33d *R/slim_text.R
 a9c318e20f0065a92cfc9b29ff42c804 *R/sort_tf.R
 7d801f9b59f4eca8556c3572d2224a23 *R/tf2doc.R
 d2b0d151a2f1a8b2f5f92cdf14a4e126 *R/topic_trend.R
@@ -60,7 +61,7 @@ b960c234f56a95ba908d9022c8601c99 *man/V.Rd
 d5b3ca7a4f08373154fc2bba4f2dc819 *man/as.character2.Rd
 cf392252d6575e9cf9aba829de5b9207 *man/as.numeric2.Rd
 3d8ce01f379659a3ff5efe50d1e42c4d *man/chinese.misc-package.Rd
-239420701f87ea9894f60bebae03f5e8 *man/corp_or_dtm.Rd
+7a2c4c4a74705a68f60efcde032e22de *man/corp_or_dtm.Rd
 190eb6b4b13dbe8db52a38873049db3a *man/create_ttm.Rd
 357b54f2c88b598e3f98bf593c80fee9 *man/csv2txt.Rd
 b1d8e735143f5b54c55ad6a602c29a79 *man/dictionary_dtm.Rd
@@ -70,12 +71,13 @@ b1d8e735143f5b54c55ad6a602c29a79 *man/dictionary_dtm.Rd
 93d8e89a0bcd389b3ed289d9ecbb11d7 *man/is_character_vector.Rd
 e181b57d6a66f7fdb7249b7e52c6b888 *man/is_positive_integer.Rd
 e884d57fcd698d135247215d65421399 *man/m2doc.Rd
+4e19024fb2abe16d80c3b5624b74dfb8 *man/m3m.Rd
 6bef139f4567e286b0fb218690d6e586 *man/make_stoplist.Rd
 300e4616c79d4aa550d2f68384831f7a *man/match_pattern.Rd
 8df608a9ec576dfabcaa9cd09961021d *man/output_dtm.Rd
 767add32bede71ed92c36c6e533b8444 *man/scancn.Rd
-6108eedda4deeb4d85bb179fe7908c32 *man/seg_file.Rd
-79a8b08dbdf9dd73ece2965ce475688c *man/slim_text.Rd
+2360d4b8849bd63554d8e3f3a0fd44f1 *man/seg_file.Rd
+0254e59127b8343860e573d2fc9994f9 *man/slim_text.Rd
 cba6f9670a19fca8c354d294d81ef7a9 *man/sort_tf.Rd
 62b812ccbc157e6774934a510e08c314 *man/tf2doc.Rd
 4fe4228aa1a962bac2a97f9b2ef7590e *man/topic_trend.Rd

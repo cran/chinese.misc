@@ -47,7 +47,7 @@
 #' of wordLengths is 8. But here in \code{corp_or_dtm}, word length is exactly
 #' the same as what you see on the screen. So, a Chinese word with 4 characters is
 #' of length 4 rather than 8.
-#'   \item (2) dictionary: a character vector of the words which will appear in DTM/TDM 
+#'   \item (2) dictionary: a character vetcor of the words which will appear in DTM/TDM 
 #' when you do not want a full one. If none of the words in the dictionary appears in 
 #' corpus, a blank DTM/TDM will be created. The vector should not contain 
 #' \code{NA}, if it does, only non-NA elements will be kept. Make sure at least 1

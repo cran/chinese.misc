@@ -1,11 +1,20 @@
                    chinese.misc NEWS and CHANGELOG
 =========================================================
 
-## 0.1.7 (2017-08-28)
+## 0.1.8 (2018-02-06)
 
-* [NEW FEATURE] #2: Add V, VC, VR, VCR, VRC to facilitate copying data from Excel-like tables.
+* [NEW FEATURE] #1: Add a new function to convert conveniently objects among matrix, 
+dgCMatrix, simple_triplet_matrix, 
+DocumentTermMatrix, TermDocumentMatrix.
 
-* [NEW FEATURE] #1: Add get_tag_word to facilitate extract pos-tags or words with certain tags.
+* [BUGFIX] #1: Only some slight changes, user-invisible.
+
+-------------------------------------------------------------------------------
+
+
+## 0.1.7 (2017-05-12)
+
+* [NEW FEATURE] #1: Add V, VC, VR, VCR, VRC to facilitate copying data from Excel-like tables.
 
 -------------------------------------------------------------------------------
 
