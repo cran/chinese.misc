@@ -1,6 +1,6 @@
 #' Remove Words through Speech Tagging
 #'
-#' The function calls \code{\link[jiebaR]{tagging}} to do speech tagging on a Chinese text, and then 
+#' The function calls \code{jiebaR::tagging} to do speech tagging on a Chinese text, and then 
 #' removes words that have certain tags.
 #'
 #' Stop words are often removed from texts. But a stop word list hardly includes all words that need 
@@ -101,7 +101,7 @@ function(x, mycutter = DEFAULT_cutter, rm_place = TRUE, rm_time = TRUE, rm_eng =
     ta <- ta[!grepl("[a-zA-Z]", ta)]
   } 
   if (paste) {
-    ta <- paste(ta, collapse = " ")
+    ta <- paste0(ta, collapse = " ")
   }
   return(ta)
 }

@@ -35,7 +35,7 @@ a length 1 character of segmented text, or a character vector, each element of w
 is a word.
 }
 \description{
-The function calls \code{\link[jiebaR]{tagging}} to do speech tagging on a Chinese text, and then 
+The function calls \code{jiebaR::tagging} to do speech tagging on a Chinese text, and then 
 removes words that have certain tags.
 }
 \details{

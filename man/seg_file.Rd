@@ -50,7 +50,7 @@ nothing returns.
 }
 \description{
 The function first collects filenames or text vectors, then it 
-calls \code{\link[jiebaR]{segment}} to segment texts. In 
+calls \code{jiebaR::segment} to segment texts. In 
 this process, it allows users to do additional modification. 
 File encoding is detected automatically. 
 After segmenting, segmented words that belong to a text will be pasted 
@@ -61,8 +61,8 @@ on the disk.
 \details{
 Users should provide their jiebar cutter by \code{mycutter}. Otherwise, the function 
 uses \code{DEFAULT_cutter} which is created when the package is loaded. 
-The \code{DEFAULT_cutter} is simply \code{worker(write=FALSE)}. 
-See \code{\link[jiebaR]{worker}}.
+The \code{DEFAULT_cutter} is simply \code{worker(write = FALSE)}. 
+See \code{jiebaR::worker}.
 
 As long as 
 you have not manually created another variable called "DEFAULT_cutter", 

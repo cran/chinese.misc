@@ -38,7 +38,7 @@ topic in each year.
 }
 \description{
 When topic names and corresponding years are given, this function computes 
-the rise and fall trend during the period by \code{\link[stats]{lm}}.
+the rise and fall trend during the period by \code{lm}.
 }
 \details{
 The detail of trend info in the result is as follows:

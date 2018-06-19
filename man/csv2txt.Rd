@@ -4,9 +4,8 @@
 \alias{csv2txt}
 \title{Write Texts in CSV into Many TXT/RTF Files}
 \usage{
-csv2txt(csv, folder, which, header = TRUE, row.names = NULL,
-  na_in_csv = c(NA, "", " ", "?", "NA", "999"), na_in_txt = " ",
-  name_col = NULL, ext = "txt")
+csv2txt(csv, folder, which, header = TRUE, na_in_csv = c(NA, "", " ", "?",
+  "NA", "999"), na_in_txt = " ", name_col = NULL, ext = "txt")
 }
 \arguments{
 \item{csv}{a .csv file. One of its columns contains texts to be written.}
@@ -17,14 +16,11 @@ already exist. If it does not exist, the function will try to create it recursiv
 be created, an error will be raised. See \code{\link{dir.create}}. Note: a name that contains 
 no punctuation is preferred.}
 
-\item{which}{a number: which column contains texts. See Details}
+\item{which}{a number: which column 
+of the csv file contains texts.}
 
 \item{header}{should the .csv file be read with its first row as header? This argument is 
 passed to \code{\link{read.csv}}. Default is \code{TRUE}.}
-
-\item{row.names}{should only be \code{NULL} or 1. This means whether your .csv file 
-has no column for row names, or row names are in the 1st column.
-it will be passed to \code{\link{read.csv}}. See Details.}
 
 \item{na_in_csv}{character vector indicating what content in the .csv file's cells should be 
 taken as \code{NA}. The default values are "", " ", "?", "NA", "999"; and you can 
@@ -50,14 +46,6 @@ nothing is returned and .txt/rtf files are written into the folder.
 The function writes texts in a given .csv file into separated .txt/.rtf files with file names added.
 }
 \details{
-Arguments \code{which} and \code{name_col} should be set in accordance 
-with \code{row.names}. Suppose your .csv file has 3 columns, the 1st column is for row names, 
-the 2nd for filenames, the 3rd for fulltexts. In so far as the 1st column is for row names 
-and \code{row.names} should be 1, your data frame only has two columns, and the 
-fulltexts are in the 2nd column, so set \code{which} to 2 (not 3), and \code{name_col}
-should be 1. If the .csv file do not have row names and its 1st column is for filenames, 2nd 
-column for fulltexts, then \code{which} should be 2, and \code{name_col} is 1.
-
 In writing .txt/.rtf files, the function gives each file a unique number as part of its filename. The 
 mechanism is as follows: suppose you have 1234 files, as this number has four digits, a 
 series of numbers 0001, 0002,...0012,...0300,...1234 are assigned rather 
@@ -78,6 +66,6 @@ txt2csv(x1, x2, must_txt = FALSE, csv = "x1x2csv.csv")
 wd <- getwd()
 wd <- gsub("/$|\\\\\\\\$", "", wd)
 f <- paste(wd, "x1x2csv", sep="/")
-csv2txt(csv = "x1x2csv.csv", folder = f, which = 2, row.names = 1, ext = "")
+csv2txt(csv = "x1x2csv.csv", folder = f, which = 3, ext = "")
 }
 }

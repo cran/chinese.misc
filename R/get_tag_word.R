@@ -1,7 +1,7 @@
 #' Extract Words of Some Certain Tags through Pos-Tagging
 #'
 #' Given a group of Chinese texts, this function manages to extract words of some specified types. For example, sometimes
-#' you want to collect all verbs that are used in your texts. Note: this function uses \code{\link[jiebaR]{tagging}} to segment
+#' you want to collect all verbs that are used in your texts. Note: this function uses \code{jiebaR::tagging} to segment
 #' texts and do pos-tagging. The types assigned are not all correct. So, alternatively, you can first pos-tag your texts with
 #' other methods and then use this function.
 #'

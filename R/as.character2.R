@@ -6,13 +6,15 @@
 #' \code{NULL} object in a list, \code{as.character2} will coerce that element into 
 #' \code{character(0)} rather than the character "NULL", which is what 
 #' \code{as.character} does. When the object is of class matrix or data frame, the function 
-#' will open it by column.
+#' will open it by column. The order of characters in result manages to keep accordance 
+#' with that of the input object. 
 #'
 #' @param ... one or more objects to be coerced.
 #'
 #' @return a character vector
 #'
 #' @export
+#' @import purrr
 #' @examples
 #' as.character2(NULL, NULL)
 #' # Try a list of NULLs
@@ -35,75 +37,39 @@ as.character2 <- function(...) {
   if (lengthX == 0){
 	FINAL <- character(0)
   } else {
-    FINAL <- unlist(lapply(1: lengthX, EAch_chA_fInAl, object = X))
+    FINAL <- inner_1_level(X)
   }	
-  if (is.null(FINAL)){
-	FINAL <- character(0)
-  }
-  if (!is.vector(FINAL)) 
-    stop("Coersion failed.")
-  names(FINAL) <- NULL
-  return(FINAL)
-}
-
-as.character2_2 <- function(...) {
-  X <- list(...)
-  if (length(X) == 0){
+  if (length(FINAL) == 0){
 	FINAL <- character(0)
   } else {
-    FINAL <- c()
-    for (i in 1:length(X)){
-      x <- X[[i]]
-      if (is.null(x)) {
-    	final <- character(0)
-      }
-      else if (length(x) == 0) {
-    	final <- character(0)
-      }
-      else if (class(x)[1] == "data.frame") {
-    	final <- inner_from_df(x)
-      }
-      else if (class(x)[1] == "list") {
-    	final <- list.as.character(x)
-      }
-      else if (class(x)[1] == "SimpleCorpus") {
-	    x$meta$language <- NULL
-    	final <- x$content
-      }	  
-      else {
-    	final <- as.character(x)
-      }
-      FINAL <- append(FINAL, final)
-    }
-  }  
-  if (is.null(FINAL)){
-	FINAL <- character(0)
+	FINAL <- unlist(lapply(FINAL, do_final_flatten))
+	names(FINAL)=NULL
   }
-  if (!is.vector(FINAL)) 
-    stop("Coersion failed.")
-  names(FINAL) <- NULL
-  return(FINAL)
+  if (length(FINAL) == 0) FINAL=character(0)
+  FINAL
+}	
+
+inner_1_level=function(x){
+	y <- purrr::flatten(x)
+	if (length(y) == 0){
+		return(character(0))
+	} else {
+		if (sum(sapply(y, FUN = function(xxx) class(xxx)[1] == "list")) > 0)	Recall(y) else y
+	}
 }
 
-EAch_chA_fInAl <- function(i, object){
-  obj <- object[[i]]
-  if (is.null(obj)) {
+do_final_flatten <- function(obj){
+  if (length(obj) == 0) {
 	return(character(0))
-  }
-  else if (length(obj) == 0) {
-	return(character(0))
-  }
-  else if (class(obj)[1] == "data.frame") {
-	return(inner_from_df(obj))
-  }
-  else if (class(obj)[1] == "list") {
-	return(list.as.character(obj))
-  }
-  else if (class(obj)[1] == "SimpleCorpus") {
+  } else if (class(obj)[1] == "data.frame") {
+	return(as.vector(apply(obj, 2, as.character)))
+  } else if (class(obj)[1] == "data.table"){
+	return(as.character(as.matrix(obj))) # must first as.matrix !
+  } else if (class(obj)[1] == "SimpleCorpus") {
     obj$meta$language <- NULL
 	return(obj$content)
-  }	  
-  else {
+  }	else {
 	return(as.character(obj))
   }
 }
+	

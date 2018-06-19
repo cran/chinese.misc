@@ -4,15 +4,17 @@
 #' different sources and cannot give them a single encoding, just let this function detect and 
 #' read them. The function can save you much time on dealing with unrecognizable characters. 
 #'
-#' The function calls \code{scan(x, what= "character", ...)} and auto-detects file 
+#' The function calls \code{scan(x, what = "character", ...)} and 
+#' auto-detects file 
 #' encoding. Sometimes 
 #' a Chinese file is encoded in "UTF-8", but what is actually read is a "?". When this happens, 
-#' the function reads it twice and uses \code{\link[stringi]{stri_encode}} to convert it.
+#' the function reads it twice and uses \code{stringi::stri_encode} to convert it.
 #' If invalid inputs are found in the content, the file will also be read twice.
 #'
 #' The function always returns a length 1 character. If the return of \code{scan} is a vector 
 #' with length larger than 1, 
-#' elements will be pasted together with three spaces. 
+#' elements will be pasted together with three spaces 
+#' or other specified symbols. 
 #'
 #' It will return 
 #'  a " " (one space) when all the elements of the vector are \code{NA}.
@@ -25,6 +27,9 @@
 #' means let the function detect encoding.
 #' @param read_2nd should be \code{TRUE} (default) or \code{FALSE}. When it is \code{TRUE}, 
 #' some files will be read twice, see Details.
+#' @param collapse this is used by the \code{collapse} argument 
+#' of \code{paste} in order to link characters together.
+#' Default is "   " (three spaces).
 #'
 #' @return a length 1 character of text.
 #'
@@ -34,7 +39,7 @@
 #' x <- file.path(find.package("base"), "CITATION")
 #' scancn(x)
 scancn <-
-function(x, enc = "auto", read_2nd = TRUE) {
+function(x, enc = "auto", read_2nd = TRUE, collapse = "   ") {
   if (length(x) > 1) {
     x <- x[1]
     message("x has length > 1, only the 1st is used.")
@@ -49,7 +54,7 @@ function(x, enc = "auto", read_2nd = TRUE) {
     text <- " "
   }
   text[is.na(text)] <- ""
-  text <- paste(text, collapse = "   ")
+  text <- paste0(text, collapse = collapse)
   text <- gsub("\\n|\\r", " ", text)
   text <- gsub("\\\\(t|r|n|)", "", text)
   if (grepl("^\\s+$", text)){

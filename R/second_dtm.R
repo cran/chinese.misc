@@ -35,7 +35,7 @@ function(x, todtm = FALSE, re_control = list(wordLengths = c(1, 25))) {
 		lapply_name <- lapply(lapply_name, intersect, lapply_unique)
 	}
 	# start
-	if (least_one  == 1){
+	if (least_one == 1){
 		lap_match <- lapply(lapply_name, match, table = lapply_unique)
 		triple_i <- unlist(lap_match)
 		triple_j <- rep.int(1: docnum, lengths(lap_match))
@@ -65,6 +65,7 @@ function(x, todtm = FALSE, re_control = list(wordLengths = c(1, 25))) {
 	} else {
 		m <- simple_triplet_zero_matrix(nrow = 1, ncol = docnum)
 		rownames(m) <- "NA"
+		message("There is in fact no word. Return a one column/row dtm/tdm with the name NA !")
 		tddtm <- tm::as.TermDocumentMatrix(m, weighting = tm::weightTf)
 		if (todtm) tddtm <- t(tddtm)
 	}

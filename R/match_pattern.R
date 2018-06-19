@@ -12,6 +12,8 @@
 #' each element of the list represents the matching result of the corresponding element 
 #' in \code{where}. If an element in \code{where} has nothing matching the pattern, the result 
 #' is still an element in the list and assigned \code{character(0)}.
+#' @param perl default is \code{FALSE}.  
+#' Should Perl-compatible regexps be used?
 #'
 #' @return a character vector or a list. If an element in \code{where} is \code{NA}, the result 
 #' corresponds to this element is \code{character(0)}.
@@ -23,10 +25,10 @@
 #' y <- match_pattern(p, x)
 #' y <- match_pattern(p, x, vec_result = FALSE)
 match_pattern <-
-function(pattern, where, vec_result = TRUE) {
+function(pattern, where, vec_result = TRUE, perl = FALSE) {
   where <- whetherencode(where)
   pattern <- whetherencode(pattern)
-  middle <- gregexpr(pattern, where)
+  middle <- gregexpr(pattern, where, perl = perl)
   if (vec_result) {
     return(unlist(regmatches(where, middle)))
   }

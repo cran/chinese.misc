@@ -20,7 +20,7 @@ only computes for words that do exist in data, and those not in data will not be
 is only used when x is a matrix. The default is "dtm".}
 
 \item{method}{what index is to be computed? It can only be "pearson", "spearman", or "kendall"
-(default). The method is passed to \code{\link[stats]{cor.test}}. The default is "kendall".}
+(default). The method is passed to \code{stats::cor.test}. The default is "kendall".}
 
 \item{p}{if the p value of a correlation index is >= this value, the index will be convert to \code{NA}
 in the correlation matrix. The default is \code{NULL}, which means no filter is done.
@@ -36,7 +36,7 @@ The 2nd element is the p value matrix with diagonal converted to \code{NA}.
 \description{
 Given a DTM/TDM/matrix, the function computes the pearson/spearman/kendall 
 correlation between pairs of words and filters the values by p value and minimum value of correlation.
-It is a little more flexible than \code{\link[tm]{findAssocs}}.
+It is a little more flexible than \code{tm::findAssocs}.
 }
 \examples{
 set.seed(1)

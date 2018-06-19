@@ -1,6 +1,19 @@
                    chinese.misc NEWS and CHANGELOG
 =========================================================
 
+## 0.1.9 (2018-06-15)
+
+* [NEW FEATURE] #1: Add a new function sparse_left to check the number of 
+words left under certain sparse values.
+
+* [NEW FEATURE] #2: Function scancn now has a collapse argument to
+specify symbols linking characters together.
+
+* [NEW FEATURE] #3: as.character2 and as.numeric2 now keep the original 
+order of the input object.
+
+-------------------------------------------------------------------------------
+
 ## 0.1.8 (2018-02-06)
 
 * [NEW FEATURE] #1: Add a new function to convert conveniently objects among matrix, 

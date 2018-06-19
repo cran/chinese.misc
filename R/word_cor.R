@@ -2,7 +2,7 @@
 #'
 #' Given a DTM/TDM/matrix, the function computes the pearson/spearman/kendall 
 #' correlation between pairs of words and filters the values by p value and minimum value of correlation.
-#' It is a little more flexible than \code{\link[tm]{findAssocs}}. 
+#' It is a little more flexible than \code{tm::findAssocs}. 
 #'
 #' @param x a DocumentTermMatrix, TermDocumentMatrix object, or a matrix. If it is a matrix, 
 #' you must specify its type by the argument \code{type}. If it is a matrix, \code{NA} is not allowed, 
@@ -13,7 +13,7 @@
 #' @param type if it starts with "d/D", it represents a DTM; if with "t/T", TDM; others are not valid. This
 #' is only used when x is a matrix. The default is "dtm".
 #' @param method what index is to be computed? It can only be "pearson", "spearman", or "kendall"
-#' (default). The method is passed to \code{\link[stats]{cor.test}}. The default is "kendall".
+#' (default). The method is passed to \code{stats::cor.test}. The default is "kendall".
 #' @param p if the p value of a correlation index is >= this value, the index will be convert to \code{NA}
 #' in the correlation matrix. The default is \code{NULL}, which means no filter is done.
 #' Note: if both argument p and min are non-Null, their relation is "or" rather than "and".

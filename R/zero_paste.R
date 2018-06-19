@@ -6,7 +6,7 @@ function(x) {
   for (i in 1:length(newx)) {
     ii <- newx[i]
     char_i <- nchar(ii)
-    zeros <- paste(rep("0", (max_char - char_i)), collapse = "")
+    zeros <- paste0(rep("0", (max_char - char_i)), collapse = "")
     ii <- paste(zeros, ii, sep = "")
     newx[i] <- ii
   }

@@ -11,17 +11,17 @@
 #' should not be put together. The function is to deal with the problem.
 #' It calls \code{\link{scancn}} to read files and 
 #' auto-detect file encodings, 
-#' and calls \code{\link[jiebaR]{segment}} to segment Chinese text, and finally 
-#' calls \code{\link[tm]{Corpus}} to generate corpus.
+#' and calls \code{jiebaR::segment} to segment Chinese text, and finally 
+#' calls \code{tm::Corpus} to generate corpus.
 #' When creating DTM/TDM, it 
-#' partially depends on \code{\link[tm]{DocumentTermMatrix}} 
-#' and \code{\link[tm]{TermDocumentMatrix}}, but also has some significant
+#' partially depends on \code{tm::DocumentTermMatrix} 
+#' and \code{tm::TermDocumentMatrix}, but also has some significant
 #' differences in setting control argument. 
 #'
 #' Users should provide their jiebar cutter by \code{mycutter}. Otherwise, the function 
 #' uses \code{DEFAULT_cutter} which is created when the package is loaded. 
 #' The \code{DEFAULT_cutter} is simply \code{worker(write = FALSE)}.
-#' See \code{\link[jiebaR]{worker}}.
+#' See \code{jiebaR::worker}.
 #'
 #' As long as 
 #' you have not manually created another variable called "DEFAULT_cutter", 
@@ -33,7 +33,7 @@
 #' \code{mycutter} and keep it as default.
 #'
 #' The argument \code{control} is very similar to the argument used by 
-#' \code{\link[tm]{DocumentTermMatrix}}, but is quite different and will not be passed
+#' \code{tm::DocumentTermMatrix}, but is quite different and will not be passed
 #' to it! The permitted elements are below:
 #'
 #' \itemize{
@@ -64,7 +64,7 @@
 #' value = 1 + 1 + 0 = 2.
 #'   \item (5) weighting: a function to compute word weights. The default is to 
 #' compute term frequency. But you can use other weighting functions, typically
-#' \code{\link[tm]{weightBin}} or \code{\link[tm]{weightTfIdf}}.
+#' \code{tm::weightBin} or \code{tm::weightTfIdf}.
 #'   \item (6) tokenizer: this value is temporarily deprecated and  
 #' it cannot be modified by users. 
 #' }
@@ -83,7 +83,8 @@
 #' If the input is a character vector of texts, it should be "v". However, if it is set to "v", 
 #' make sure each element is not identical to filename in your working
 #' directory; and, if they are identical, the function will raise an error. To do this check is 
-#' because if they are identical, \code{segment} will take the input as a file to read! 
+#' because if they are identical, \code{jiebaR::segment} 
+#' will take the input as a file to read! 
 #' @param type what do you want for result. It is case insensitive, thus those start with 
 #' "c" or "C" represent a corpus 
 #' result; and those start with "d" or "D" for document term matrix, 
@@ -183,7 +184,7 @@ function(..., from = "dir", type = "corpus", enc = "auto", mycutter = DEFAULT_cu
 		conved <- AftEr_myfUn(conved)
       }	  
       if (!is.null(mycutter)) {
-        conved <- paste(jiebaR::segment(conved, jiebar = mycutter), collapse = " ")
+        conved <- paste0(jiebaR::segment(conved, jiebar = mycutter), collapse = " ")
         conved <- gsub("\\s+", " ", conved)
       }
       if (!is.null(myfun2) && grepl("[^[:space:]]", conved) == TRUE) {

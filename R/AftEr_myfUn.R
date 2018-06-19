@@ -7,7 +7,7 @@ AftEr_myfUn <- function(x, pa = FALSE) {
     x[is.na(x)] <- ""
     if (pa) {
       if (length(x) > 1) {
-        x <- paste(x, collapse = " ")
+        x <- paste0(x, collapse = " ")
       }
     }
 	x <- whetherencode(x)

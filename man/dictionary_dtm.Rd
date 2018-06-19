@@ -9,8 +9,8 @@ dictionary_dtm(x, dictionary, type = "dtm", simple_sum = FALSE,
 }
 \arguments{
 \item{x}{an object of class DocumentTermMatrix or TermDocumentMatrix created by
-\code{\link[chinese.misc]{corp_or_dtm}} or \code{\link[tm]{DocumentTermMatrix}} or 
-\code{\link[tm]{TermDocumentMatrix}}. But it can also be a numeric matrix and you have to specify its type, 
+\code{\link[chinese.misc]{corp_or_dtm}} or \code{tm::DocumentTermMatrix} or 
+\code{tm::TermDocumentMatrix}. But it can also be a numeric matrix and you have to specify its type, 
 see below.}
 
 \item{dictionary}{a dictionary telling the function how you group the words. It can be a list, matrix, data.frame 

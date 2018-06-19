@@ -22,8 +22,8 @@
 #' }
 #'
 #' @param x an object of class DocumentTermMatrix or TermDocumentMatrix created by
-#' \code{\link[chinese.misc]{corp_or_dtm}} or \code{\link[tm]{DocumentTermMatrix}} or 
-#' \code{\link[tm]{TermDocumentMatrix}}. But it can also be a numeric matrix and you have to specify its type, 
+#' \code{\link[chinese.misc]{corp_or_dtm}} or \code{tm::DocumentTermMatrix} or 
+#' \code{tm::TermDocumentMatrix}. But it can also be a numeric matrix and you have to specify its type, 
 #' see below.
 #' @param dictionary a dictionary telling the function how you group the words. It can be a list, matrix, data.frame 
 #' or character vector. Please see details for how to set this argument.

@@ -19,7 +19,8 @@ This function manages to coerce one or more objects into a character vector. Unl
 \code{NULL} object in a list, \code{as.character2} will coerce that element into 
 \code{character(0)} rather than the character "NULL", which is what 
 \code{as.character} does. When the object is of class matrix or data frame, the function 
-will open it by column.
+will open it by column. The order of characters in result manages to keep accordance 
+with that of the input object.
 }
 \examples{
 as.character2(NULL, NULL)

@@ -4,7 +4,7 @@
 \alias{match_pattern}
 \title{Extract Strings by Regular Expression Quickly}
 \usage{
-match_pattern(pattern, where, vec_result = TRUE)
+match_pattern(pattern, where, vec_result = TRUE, perl = FALSE)
 }
 \arguments{
 \item{pattern}{a length 1 regular expression to be matched.}
@@ -17,6 +17,9 @@ all matched parts will be returned in a character vector. If \code{FALSE}, a lis
 each element of the list represents the matching result of the corresponding element 
 in \code{where}. If an element in \code{where} has nothing matching the pattern, the result 
 is still an element in the list and assigned \code{character(0)}.}
+
+\item{perl}{default is \code{FALSE}.
+Should Perl-compatible regexps be used?}
 }
 \value{
 a character vector or a list. If an element in \code{where} is \code{NA}, the result 

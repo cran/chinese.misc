@@ -8,7 +8,7 @@ sort_tf(x, top = 10, type = "dtm", todf = FALSE, must_exact = FALSE)
 }
 \arguments{
 \item{x}{a matrix, or an object created by \code{\link{corp_or_dtm}} or 
-by \code{\link[tm]{DocumentTermMatrix}}, or \code{\link[tm]{TermDocumentMatrix}}.
+by \code{tm::DocumentTermMatrix}, or \code{tm::TermDocumentMatrix}.
 Data frame is not allowed. If it is a matrix, the column names (if \code{type} is "dtm") 
 or row names (if \code{type} is "tdm") is taken to be terms, see below. If the names 
 are \code{NULL}, terms are set to "term1", "term2", "term3"...automatically.}
@@ -33,7 +33,7 @@ the number of returned words should be equal to that specified by \code{top}. Se
 return nothing and message the result, or return a data frame.
 }
 \description{
-By inputing a matrix, or a document term matrix, or term document matrix, this function counts
+By inputting a matrix, or a document term matrix, or term document matrix, this function counts
 the sum of each term and output top n terms. The result can be messaged on the screen, so 
 that you can manually copy them to other places (e. g., Excel).
 }

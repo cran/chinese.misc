@@ -1,7 +1,7 @@
 #' Simple Rise or Fall Trend of Several Years
 #'
 #' When topic names and corresponding years are given, this function computes 
-#' the rise and fall trend during the period by \code{\link[stats]{lm}}.
+#' the rise and fall trend during the period by \code{lm}.
 #' 
 #' The detail of trend info in the result is as follows:
 #'
