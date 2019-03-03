@@ -43,11 +43,11 @@ whetherencode <- function(x){
 	y <- tryCatch(
 		expr = {
 			xx <- x
-			de <- suppressWarnings(Ruchardet::detectEncoding(x))
-			for (i in 1: length(de)){
-				if (! de[i] %in% c("UTF-8", "utf-8")){
-					xx[i] <- stringi::stri_encode(xx[i], to = "UTF-8")
-				}
+			de <- suppressWarnings(stringi::stri_enc_detect(x))
+			de <- sapply(de, FUN=function(sapp) sapp$Encoding[1])
+			not_utf8=which(! de %in% c("UTF-8", "utf-8"))
+			if (length(not_utf8) > 0){
+				for (i in not_utf8) xx[i] <- stringi::stri_encode(xx[i], to = "UTF-8")
 			}
 			xx
 		},
@@ -62,3 +62,28 @@ whetherencode <- function(x){
 		y <- x
 	return(y)
 }
+
+
+# whetherencode <- function(x){
+# 	y <- tryCatch(
+# 		expr = {
+# 			xx <- x
+# 			de <- suppressWarnings(Ruchardet::detectEncoding(x))
+# 			for (i in 1: length(de)){
+# 				if (! de[i] %in% c("UTF-8", "utf-8")){
+# 					xx[i] <- stringi::stri_encode(xx[i], to = "UTF-8")
+# 				}
+# 			}
+# 			xx
+# 		},
+# 		error = function(e){
+# 			return(-999999)
+# 		},
+# 		warning = function(w){
+# 			return(-999999)
+# 		}
+# 	)
+# 	if (identical(y, -999999))
+# 		y <- x
+# 	return(y)
+# }

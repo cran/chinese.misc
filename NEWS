@@ -1,6 +1,14 @@
                    chinese.misc NEWS and CHANGELOG
 =========================================================
 
+## 0.2.0 (2019-03-04)
+
+* [BUGFIX] #1: Now the package does not depend on package Ruchardet.
+Encode detectiing is done by package stringi.
+
+-------------------------------------------------------------------------------
+
+
 ## 0.1.9 (2018-06-15)
 
 * [NEW FEATURE] #1: Add a new function sparse_left to check the number of 

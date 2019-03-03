@@ -4,9 +4,9 @@
 \alias{get_tag_word}
 \title{Extract Words of Some Certain Tags through Pos-Tagging}
 \usage{
-get_tag_word(x, tag = NULL, tag_pattern = NULL, mycutter = DEFAULT_cutter,
-  type = "word", each = TRUE, only_unique = FALSE, keep_name = FALSE,
-  checks = TRUE)
+get_tag_word(x, tag = NULL, tag_pattern = NULL,
+  mycutter = DEFAULT_cutter, type = "word", each = TRUE,
+  only_unique = FALSE, keep_name = FALSE, checks = TRUE)
 }
 \arguments{
 \item{x}{it must be a list of character vectors, even when the list contains only one element. 

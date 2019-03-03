@@ -4,8 +4,8 @@
 \alias{slim_text}
 \title{Remove Words through Speech Tagging}
 \usage{
-slim_text(x, mycutter = DEFAULT_cutter, rm_place = TRUE, rm_time = TRUE,
-  rm_eng = FALSE, rm_alpha = FALSE, paste = TRUE)
+slim_text(x, mycutter = DEFAULT_cutter, rm_place = TRUE,
+  rm_time = TRUE, rm_eng = FALSE, rm_alpha = FALSE, paste = TRUE)
 }
 \arguments{
 \item{x}{a length 1 character of Chinese text to be tagged}

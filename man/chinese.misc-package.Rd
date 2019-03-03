@@ -15,7 +15,7 @@ on the following three points:
 (2) It helps decrease errors (it tolerates and corrects input errors, if it can;  
 and if it cannot, it gives meaningful error messages).
 (3) Although the functions in this package depend on \pkg{tm} and 
-\pkg{Ruchardet}, several steps and the values of arguments have been 
+\pkg{stringi}, several steps and the values of arguments have been 
 specially set to facilitate processing Chinese text.
 For example, \code{corp_or_dtm} creates corpus or 
 document term matrix, users only need to input folder names or file names, and the function 
@@ -46,3 +46,4 @@ as.character2(l2)
 \author{
 Jiang Wu
 }
+\concept{chinese.misc_general_topics}
