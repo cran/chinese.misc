@@ -6,7 +6,8 @@
 \usage{
 corp_or_dtm(..., from = "dir", type = "corpus", enc = "auto",
   mycutter = DEFAULT_cutter, stop_word = NULL, stop_pattern = NULL,
-  control = "auto", myfun1 = NULL, myfun2 = NULL, special = "")
+  control = "auto", myfun1 = NULL, myfun2 = NULL, special = "",
+  use_stri_replace_all = FALSE)
 }
 \arguments{
 \item{...}{names of folders, files, or the mixture of the two kinds. It can also be a character 
@@ -63,6 +64,10 @@ and before being segmented.}
 \item{special}{a length 1 character or regular expression to be passed to \code{dir_or_file} 
 to specify what pattern should be met by filenames. The default is to read all files.
 See \code{\link{dir_or_file}}.}
+
+\item{use_stri_replace_all}{default is FALSE. If it is TRUE, 
+\code{stringi::stri_replace_all} is used to delete stop words, which has 
+a slightly higher speed. This is still experimental.}
 }
 \value{
 a corpus, or document term matrix, or term document matrix.
