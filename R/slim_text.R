@@ -6,7 +6,8 @@
 #' Stop words are often removed from texts. But a stop word list hardly includes all words that need 
 #' to be removed. So, before removing stop words, we can remove a lot of insignificant 
 #' words by tagging and make the texts "slim".
-#' \url{http://www.docin.com/p-341417726.html?_t_t_t=0.3930890985844252} 
+#' The webpage 
+#' http://www.docin.com/p-341417726.html?_t_t_t=0.3930890985844252 
 #' provides details about Chinese word tags.
 #'
 #' Only words with the following tags are to be preserved: 
@@ -58,6 +59,7 @@
 #'
 #' @export
 #' @examples
+#' \donttest{
 #' require(jiebaR)
 #' cutter <- jiebaR::worker()
 #' # Give some English words a new tag.
@@ -71,6 +73,7 @@
 #' # even when rm_eng = FALSE.
 #' slim_text(x, mycutter = cutter, rm_eng = TRUE, rm_alpha = TRUE)
 #' slim_text(x, mycutter = cutter, rm_eng = FALSE, rm_alpha = TRUE)
+#' }
 slim_text <-
 function(x, mycutter = DEFAULT_cutter, rm_place = TRUE, rm_time = TRUE, rm_eng = FALSE, rm_alpha = FALSE, paste = TRUE) {
   stopifnot(class(mycutter)[1] == "jiebar")

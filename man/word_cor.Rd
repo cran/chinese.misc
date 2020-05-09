@@ -4,8 +4,7 @@
 \alias{word_cor}
 \title{Word Correlation in DTM/TDM}
 \usage{
-word_cor(x, word, type = "dtm", method = "kendall", p = NULL,
-  min = NULL)
+word_cor(x, word, type = "dtm", method = "kendall", p = NULL, min = NULL)
 }
 \arguments{
 \item{x}{a DocumentTermMatrix, TermDocumentMatrix object, or a matrix. If it is a matrix, 

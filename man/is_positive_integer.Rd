@@ -21,7 +21,7 @@ The default is \code{NULL}, which means any length is OK.}
 This function checks if all elements of an object can be taken to be valid integers.
 }
 \details{
-The reasons to use \code{is_positive_integer} are:
+The reasons to use \code{is_positive_integer} are: 
 
 \itemize{
   \item (1) We often check if an object is a vector of positive integer. 

@@ -4,8 +4,16 @@
 \alias{csv2txt}
 \title{Write Texts in CSV into Many TXT/RTF Files}
 \usage{
-csv2txt(csv, folder, which, header = TRUE, na_in_csv = c(NA, "", " ",
-  "?", "NA", "999"), na_in_txt = " ", name_col = NULL, ext = "txt")
+csv2txt(
+  csv,
+  folder,
+  which,
+  header = TRUE,
+  na_in_csv = c(NA, "", " ", "?", "NA", "999"),
+  na_in_txt = " ",
+  name_col = NULL,
+  ext = "txt"
+)
 }
 \arguments{
 \item{csv}{a .csv file. One of its columns contains texts to be written.}

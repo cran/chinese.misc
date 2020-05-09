@@ -4,7 +4,9 @@
 \name{DEFAULT_control1}
 \alias{DEFAULT_control1}
 \title{A Default Value for corp_or_dtm 1}
-\format{An object of class \code{list} of length 2.}
+\format{
+An object of class \code{list} of length 2.
+}
 \usage{
 DEFAULT_control1
 }

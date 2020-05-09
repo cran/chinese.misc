@@ -4,8 +4,14 @@
 \alias{dictionary_dtm}
 \title{Making DTM/TDM for Groups of Words}
 \usage{
-dictionary_dtm(x, dictionary, type = "dtm", simple_sum = FALSE,
-  return_dictionary = FALSE, checks = TRUE)
+dictionary_dtm(
+  x,
+  dictionary,
+  type = "dtm",
+  simple_sum = FALSE,
+  return_dictionary = FALSE,
+  checks = TRUE
+)
 }
 \arguments{
 \item{x}{an object of class DocumentTermMatrix or TermDocumentMatrix created by

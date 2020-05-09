@@ -4,10 +4,20 @@
 \alias{corp_or_dtm}
 \title{Create Corpus or Document Term Matrix with 1 Line}
 \usage{
-corp_or_dtm(..., from = "dir", type = "corpus", enc = "auto",
-  mycutter = DEFAULT_cutter, stop_word = NULL, stop_pattern = NULL,
-  control = "auto", myfun1 = NULL, myfun2 = NULL, special = "",
-  use_stri_replace_all = FALSE)
+corp_or_dtm(
+  ...,
+  from = "dir",
+  type = "corpus",
+  enc = "auto",
+  mycutter = DEFAULT_cutter,
+  stop_word = NULL,
+  stop_pattern = NULL,
+  control = "auto",
+  myfun1 = NULL,
+  myfun2 = NULL,
+  special = "",
+  use_stri_replace_all = FALSE
+)
 }
 \arguments{
 \item{...}{names of folders, files, or the mixture of the two kinds. It can also be a character 
@@ -90,7 +100,7 @@ calls \code{tm::Corpus} to generate corpus.
 When creating DTM/TDM, it 
 partially depends on \code{tm::DocumentTermMatrix} 
 and \code{tm::TermDocumentMatrix}, but also has some significant
-differences in setting control argument.
+differences in setting control argument. 
 
 Users should provide their jiebar cutter by \code{mycutter}. Otherwise, the function 
 uses \code{DEFAULT_cutter} which is created when the package is loaded. 

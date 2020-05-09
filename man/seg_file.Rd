@@ -4,9 +4,17 @@
 \alias{seg_file}
 \title{Convenient Tool to Segment Chinese Texts}
 \usage{
-seg_file(..., from = "dir", folder = NULL, mycutter = DEFAULT_cutter,
-  enc = "auto", myfun1 = NULL, myfun2 = NULL, special = "",
-  ext = "txt")
+seg_file(
+  ...,
+  from = "dir",
+  folder = NULL,
+  mycutter = DEFAULT_cutter,
+  enc = "auto",
+  myfun1 = NULL,
+  myfun2 = NULL,
+  special = "",
+  ext = "txt"
+)
 }
 \arguments{
 \item{...}{names of folders, files, or the mixture of the two kinds. It can also be a character 
@@ -62,7 +70,7 @@ on the disk.
 Users should provide their jiebar cutter by \code{mycutter}. Otherwise, the function 
 uses \code{DEFAULT_cutter} which is created when the package is loaded. 
 The \code{DEFAULT_cutter} is simply \code{worker(write = FALSE)}. 
-See \code{jiebaR::worker}.
+See \code{jiebaR::worker}. 
 
 As long as 
 you have not manually created another variable called "DEFAULT_cutter", 

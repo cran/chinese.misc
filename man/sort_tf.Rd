@@ -4,8 +4,7 @@
 \alias{sort_tf}
 \title{Find High Frequency Terms}
 \usage{
-sort_tf(x, top = 10, type = "dtm", todf = FALSE,
-  must_exact = FALSE)
+sort_tf(x, top = 10, type = "dtm", todf = FALSE, must_exact = FALSE)
 }
 \arguments{
 \item{x}{a matrix, or an object created by \code{\link{corp_or_dtm}} or 

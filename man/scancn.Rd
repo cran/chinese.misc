@@ -38,7 +38,7 @@ If invalid inputs are found in the content, the file will also be read twice.
 The function always returns a length 1 character. If the return of \code{scan} is a vector 
 with length larger than 1, 
 elements will be pasted together with three spaces 
-or other specified symbols.
+or other specified symbols. 
 
 It will return 
  a " " (one space) when all the elements of the vector are \code{NA}.

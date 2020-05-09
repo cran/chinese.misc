@@ -4,7 +4,9 @@
 \name{DEFAULT_cutter}
 \alias{DEFAULT_cutter}
 \title{A Default Cutter}
-\format{An object of class \code{jiebar} (inherits from \code{segment}, \code{jieba}) of length 11.}
+\format{
+An object of class \code{jiebar} (inherits from \code{segment}, \code{jieba}) of length 11.
+}
 \usage{
 DEFAULT_cutter
 }

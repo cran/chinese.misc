@@ -26,5 +26,5 @@ V <- function(tofactor = 0, keepblank = 0, sep = "\t") {
     nast <- c("NA", "")
     if((identical(keepblank, 1) | identical(keepblank, TRUE)) & asfa == FALSE)
         nast <- "NA"
-    utils::read.table("clipboard", header = FALSE, blank.lines.skip = FALSE, sep = sep, na.strings = nast, stringsAsFactors = asfa)
+    utils::read.table("clipboard", header = FALSE, blank.lines.skip = FALSE, sep = sep, na.strings = nast, stringsAsFactors = asfa, quote = "")
 }

@@ -36,7 +36,7 @@ Also, \code{is.character(NA)} returns \code{FALSE}, but
 \code{is.character(as.character(NA))} returns \code{TRUE}, but in fact there is really 
 no difference between the two for users and many functions that do not allow \code{NA}.
 
-We list below the returns of \code{is.character2}:
+We list below the returns of \code{is.character2}: 
 
 \itemize{
   \item (1) if the object is \code{NULL}, \code{is.character2} returns \code{FALSE}. 
