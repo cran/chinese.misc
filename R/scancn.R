@@ -25,8 +25,6 @@
 #' @param x a length 1 character specifying filename.
 #' @param enc a length 1 character of file encoding specified by user. The default is "auto", which 
 #' means let the function detect encoding.
-#' @param read_2nd should be \code{TRUE} (default) or \code{FALSE}. When it is \code{TRUE}, 
-#' some files will be read twice, see Details.
 #' @param collapse this is used by the \code{collapse} argument 
 #' of \code{paste} in order to link characters together.
 #' Default is "   " (three spaces).
@@ -39,16 +37,15 @@
 #' x <- file.path(find.package("base"), "CITATION")
 #' scancn(x)
 scancn <-
-function(x, enc = "auto", read_2nd = TRUE, collapse = "   ") {
+function(x, enc = "auto", collapse = "   ") {
   if (length(x) > 1) {
     x <- x[1]
     message("x has length > 1, only the 1st is used.")
   }
   x <- whetherencode(x)
-  if (!read_2nd %in% c(TRUE, FALSE)) 
-    stop("read_2nd must be TRUE or FALSE.")
   the_enc <- gEtthEEnc(x1 = x, x2 = enc)
-  text <- tryscAn(x = x, the_enc_in = the_enc, read_2nd_in = read_2nd)
+  text <- scan(x, what = "character", quiet = TRUE, sep = "\n", fileEncoding = the_enc)
+  if (the_enc != "UTF-8") text <- stringi::stri_encode(text, to="UTF-8")
   text <- gsub("[[:cntrl:]]\\d", "", text)
   if (all(is.na(text)) | identical(text, "?")) {
     text <- " "

@@ -46,7 +46,8 @@ function(x = "jiebar", print = TRUE) {
   }
   else {
     the_enc <- gEtthEEnc(x1 = x, x2 = "auto")
-    ST <- tryscAn(x = x, the_enc_in = the_enc, read_2nd_in = TRUE)
+	ST <- scan(x, what = "character", quiet = TRUE, sep = "\n", fileEncoding = the_enc)
+	if (the_enc != "UTF-8") ST <- stringi::stri_encode(ST, to="UTF-8")
 	ST <- gsub("[[:cntrl:]]\\d", "", ST)
 	ST <- gsub("\\n|\\r", " ", ST)	
   }

@@ -1,8 +1,8 @@
 Package: chinese.misc
 Type: Package
 Title: Miscellaneous Tools for Chinese Text Mining and More
-Version: 0.2.2
-Date: 2020-05-11
+Version: 0.2.3
+Date: 2020-09-10
 Authors@R: c(person("Jiang", "Wu", role = c("aut", "cre"),
 					email = "textidea@sina.com",
                     comment = "from Capital Normal University"))
@@ -19,9 +19,9 @@ Imports: jiebaR, NLP, tm (>= 0.7), stringi, slam (>= 0.1-37), Matrix,
 Encoding: UTF-8
 LazyLoad: true
 LazyData: true
-RoxygenNote: 7.1.0
+RoxygenNote: 7.1.1
 NeedsCompilation: no
-Packaged: 2020-05-09 18:54:11 UTC; useruser
+Packaged: 2020-09-11 21:25:55 UTC; useruser
 Author: Jiang Wu [aut, cre] (from Capital Normal University)
 Repository: CRAN
-Date/Publication: 2020-05-09 19:20:02 UTC
+Date/Publication: 2020-09-11 21:50:03 UTC

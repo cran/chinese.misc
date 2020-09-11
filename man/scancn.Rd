@@ -4,16 +4,13 @@
 \alias{scancn}
 \title{Read a Text File by Auto-Detecting Encoding}
 \usage{
-scancn(x, enc = "auto", read_2nd = TRUE, collapse = "   ")
+scancn(x, enc = "auto", collapse = "   ")
 }
 \arguments{
 \item{x}{a length 1 character specifying filename.}
 
 \item{enc}{a length 1 character of file encoding specified by user. The default is "auto", which 
 means let the function detect encoding.}
-
-\item{read_2nd}{should be \code{TRUE} (default) or \code{FALSE}. When it is \code{TRUE}, 
-some files will be read twice, see Details.}
 
 \item{collapse}{this is used by the \code{collapse} argument 
 of \code{paste} in order to link characters together.
